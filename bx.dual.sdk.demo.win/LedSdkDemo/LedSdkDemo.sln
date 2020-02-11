@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LedSdkDemo", "LedSdkDemo.vcxproj", "{151DD47A-05B7-4D08-9B13-CE91564432BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug32MT|x64 = Debug32MT|x64
+		Debug32MT|x86 = Debug32MT|x86
+		Release32MT|x64 = Release32MT|x64
+		Release32MT|x86 = Release32MT|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.Debug32MT|x64.ActiveCfg = Debug32MT|x64
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.Debug32MT|x64.Build.0 = Debug32MT|x64
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.Debug32MT|x86.ActiveCfg = Debug32MT|Win32
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.Debug32MT|x86.Build.0 = Debug32MT|Win32
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.Release32MT|x64.ActiveCfg = Release32MT|x64
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.Release32MT|x64.Build.0 = Release32MT|x64
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.Release32MT|x86.ActiveCfg = Release32MT|Win32
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.Release32MT|x86.Build.0 = Release32MT|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
