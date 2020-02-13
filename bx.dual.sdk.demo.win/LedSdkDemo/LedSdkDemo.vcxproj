@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release32MT|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\Win32\Release_32_MT</OutDir>
+    <OutDir>..\Win32\Release</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug32MT|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -100,7 +100,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>bx_sdk_dual.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\Win32\Release_32_MT;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Win32\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <StackReserveSize>16777216</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
@@ -121,7 +121,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>bx_sdk_dual.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\Win32\Release_32_MT;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Win32\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <StackReserveSize>16777216</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>

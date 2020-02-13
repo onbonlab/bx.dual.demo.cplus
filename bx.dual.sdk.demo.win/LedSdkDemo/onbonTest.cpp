@@ -8,8 +8,8 @@
 
 #include "stdafx.h"
 #include "onbonTest.h"
-#include "../LedEQSdk/bx_sdk_dual.h"
-#include "../LedEQSdk/bx_dual_sdk.h"
+#include "../onbonDualSdk_h/bx_sdk_dual.h"
+#include "../onbonDualSdk_h/bx_dual_sdk.h"
 
 #include "logMsg.h"
 
