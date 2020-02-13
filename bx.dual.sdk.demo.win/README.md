@@ -1,13 +1,11 @@
 # bx.dual.sdk.demo.win
-windows平台SDK库说明
+windows平台onbon SDK DEMO说明
 
 目录说明：
 
-./LedEQSdk	存放头文件，其中bx_dual_sdk.h文件中包含所有SDK函数的声明和说明；
+./onbon.dual.sdk.h 存放头文件，其中bx_dual_sdk.h文件中包含所有SDK函数的声明和说明；
 
-./LedSdkDemo  存放基于windows visual studio VS2010版本的C++ demo代码；
-
-./lib32_MT	存放SDK依赖的第三方库
+./onbon.dual.sdk.demo.project 存放基于windows visual studio VS2010版本的C++ demo代码；
 
 ./Win32	存放基于windows visual studio VS2010版本的C++ demo生成windows32位平台的可执行文件及所有依赖库；
 
