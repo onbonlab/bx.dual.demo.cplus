@@ -122,7 +122,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>bx_sdk_dual.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\Win32\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\lib\lib32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <StackReserveSize>16777216</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
