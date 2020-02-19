@@ -8,7 +8,7 @@
 #ifndef _fantx_onbon_test_h_
 #define _fantx_onbon_test_h_
 
-#include "../onbon.dual.sdk.h/Obasic_types.h"
+#include "../include/Obasic_types.h"
 
 #define DEBUG_TCP				1
 #define DEBUG_UDP				0

@@ -41,7 +41,7 @@
     <ClCompile Include="onbonTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="onbon.dual.sdk.demo.cpp">
+    <ClCompile Include="demo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
