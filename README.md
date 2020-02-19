@@ -1,2 +1,19 @@
-# bx.dual.demo.cplus
-onbox dual sdk  demo for G5/G6 LED control card.
+# onbon SDK windows平台C++二次开发库说明
+适用产品：
+
+仰邦5代、6代图文控制卡;
+
+
+
+本库支持的开发环境：
+
+visual studio 2010及以上版本；
+
+
+
+支持向控制卡发布内容的方式：
+
+发送节目；
+
+发送动态区；
+
