@@ -41,9 +41,13 @@ visual studio 2010及以上版本；
 
 
 
-### SDK动态区接口详细说明：
+### SDK动态区接口详细说明
+
+参考：[动态区接口调用说明](https://github.com/onbonlab/bx.dual.linux.cplus/blob/master/doc/BX-G5G6%20SDK%20动态区接口调用说明C%2B%2B.md)
 
 
+
+### 最新版本更新说明
 
 SDK中 增加多条信息（文本/图片）到单个动态区 的接口函数为：
 
