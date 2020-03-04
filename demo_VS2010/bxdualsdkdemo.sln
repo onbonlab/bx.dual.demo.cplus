@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bxdualsdkdemo", "bxdualsdkdemo.vcxproj", "{151DD47A-05B7-4D08-9B13-CE91564432BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebugMT|x64 = DebugMT|x64
+		DebugMT|x86 = DebugMT|x86
+		ReleaseMT|x64 = ReleaseMT|x64
+		ReleaseMT|x86 = ReleaseMT|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.DebugMT|x64.ActiveCfg = DebugMT|x64
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.DebugMT|x64.Build.0 = DebugMT|x64
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.DebugMT|x86.ActiveCfg = ReleaseMT|Win32
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.DebugMT|x86.Build.0 = ReleaseMT|Win32
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.ReleaseMT|x64.ActiveCfg = ReleaseMT|x64
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.ReleaseMT|x64.Build.0 = ReleaseMT|x64
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.ReleaseMT|x86.ActiveCfg = ReleaseMT|Win32
+		{151DD47A-05B7-4D08-9B13-CE91564432BC}.ReleaseMT|x86.Build.0 = ReleaseMT|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
