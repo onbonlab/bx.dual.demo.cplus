@@ -2271,13 +2271,6 @@ void onbonTest_DynamicArea_6G(unsigned char* pIP)
 
 
 		oTxtInfo.strAreaTxtContent = (Ouint8*)"埌T1-0123456789-abcdefg-结束"; //(Ouint8*)"T1-0123456789-abcdefghijklmnopqrst-结束|";
-#ifdef chcp65001
-		string strCnt = (char*)oTxtInfo.strAreaTxtContent;
-		int cnst_str_buffer_size = 256;
-		Oint8* pDest = new Oint8[cnst_str_buffer_size];
-		int nDestLen = GB2312ToUTF8((Oint8*)oTxtInfo.strAreaTxtContent, pDest, cnst_str_buffer_size);
-		oTxtInfo.strAreaTxtContent = (Ouint8*)pDest;
-#endif // chcp65001
 
 		onbon_DynamicAreaInfo_G6 oPicInfo1;
 		oPicInfo1.nType = 2;
