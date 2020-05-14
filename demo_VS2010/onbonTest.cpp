@@ -289,7 +289,7 @@ void addProgram_G5(Ouint16 c_type)
 	header.ProgramWeek = 0xff;
 	header.ProgramLifeSpan_sy = 0xffff;
 	header.ProgramLifeSpan_sm = 0x03;
-	header.ProgramLifeSpan_sd = 0x05;
+	header.ProgramLifeSpan_sd = 0x01;
 	header.ProgramLifeSpan_ey = 0xffff;
 	header.ProgramLifeSpan_em = 0x04;
 	header.ProgramLifeSpan_ed = 0x12;
@@ -297,12 +297,12 @@ void addProgram_G5(Ouint16 c_type)
 
 	EQprogramppGrp_G56 ppHeader;
 	ppHeader.playTimeGrpNum = 0;
-	ppHeader.timeGrp0.StartHour = 15;
-	ppHeader.timeGrp0.StartMinute = 0;
-	ppHeader.timeGrp0.StartSecond = 0;
-	ppHeader.timeGrp0.EndHour = 15;
-	ppHeader.timeGrp0.EndMinute = 2;
-	ppHeader.timeGrp0.EndSecond = 0;
+	ppHeader.timeGrp0.StartHour = 0x01;
+	ppHeader.timeGrp0.StartMinute = 0x00;
+	ppHeader.timeGrp0.StartSecond = 0x00;
+	ppHeader.timeGrp0.EndHour = 0x23;
+	ppHeader.timeGrp0.EndMinute = 0x59;
+	ppHeader.timeGrp0.EndSecond = 0x00;
 	program_addPlayPeriodGrp(&ppHeader);
 
 
@@ -313,7 +313,7 @@ void addProgram_G5(Ouint16 c_type)
 	sfheader.FrameMoveStep = 0x01;
 	sfheader.FrameWidth = 2;
 	sfheader.FrameBackup = 0;
-	bxDual_program_addFrame(&sfheader, (Ouint8*)"K:\\green_2Pixel.png");
+	//bxDual_program_addFrame(&sfheader,(Ouint8*)"K:\\green_2Pixel.png");
 }
 
 int g_nCountG5 = 0;
@@ -322,9 +322,9 @@ void addPictureArea_G5()
 	//Oint8 ret;
 	EQareaHeader aheader;
 	aheader.AreaType = 0x00;
-	aheader.AreaX = 16;
-	aheader.AreaY = 4;
-	aheader.AreaWidth = 32;
+	aheader.AreaX = 0;
+	aheader.AreaY = 3;
+	aheader.AreaWidth = 64;
 	aheader.AreaHeight = 20;
 	program_AddArea(0, &aheader);  //添加图文区域
 
@@ -336,7 +336,7 @@ void addPictureArea_G5()
 	afheader.AreaFWidth = 2;
 	afheader.AreaFBackup = 0;
 	//bxDual_program_picturesAreaAddFrame
-	program_picturesAreaAddFrame(0, &afheader, (Ouint8*)"K:\\green_2Pixel.png");
+	//program_picturesAreaAddFrame(0, &afheader, (Ouint8*)"K:\\green_2Pixel.png");
 
 
 	Ouint8 str[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ结束.";
@@ -363,8 +363,8 @@ void addPictureArea_G5()
 	pheader.txtSpace = 0;
 	pheader.Halign = 2;
 	pheader.Valign = 2;
-	//program_picturesAreaAddTxt(0, str,(Ouint8*)"宋体",&pheader);
-	program_fontPath_picturesAreaAddTxt(0, str, (Ouint8*)"allfonts/1.ttf", &pheader);
+	program_picturesAreaAddTxt(0, str, (Ouint8*)"宋体", &pheader);
+	//program_fontPath_picturesAreaAddTxt(0,str,(Ouint8*)"allfonts/1.ttf", &pheader);
 
 
 
@@ -590,21 +590,21 @@ void addProgram_G6(Ouint16 c_Type, Ouint8 nE_ScreenColor_G56)
 	fHeader.FrameUnitLength = 32;
 	fHeader.FrameUnitWidth = 4;//2;
 	fHeader.FrameDirectDispBit = 0x01;
-	//program_addFrame_G6(&fHeader, (Ouint8*)".\\backgroundPng\\led_bk1.png");// "K:\\green_16_2.png");
+	program_addFrame_G6(&fHeader, (Ouint8*)".\\backgroundPng\\led_bk1.png");// "K:\\green_16_2.png");
 
 
 
-	//修改节目边框
-	// 	fHeader.FrameDispStype = 0x01;
-	// 	fHeader.FrameDispSpeed = 0x01;
-	// 	fHeader.FrameMoveStep = 0x01;
-	// 	fHeader.FrameUnitLength = 0x20;
-	// 	fHeader.FrameUnitWidth = 0x04;
-	// 	fHeader.FrameDirectDispBit = 0x01;
-	//program_changeFrame_G6(&fHeader,(Ouint8*)"biankuang/led_bk3.png");
+																			//修改节目边框
+																			// 	fHeader.FrameDispStype = 0x01;
+																			// 	fHeader.FrameDispSpeed = 0x01;
+																			// 	fHeader.FrameMoveStep = 0x01;
+																			// 	fHeader.FrameUnitLength = 0x20;
+																			// 	fHeader.FrameUnitWidth = 0x04;
+																			// 	fHeader.FrameDirectDispBit = 0x01;
+																			//program_changeFrame_G6(&fHeader,(Ouint8*)"biankuang/led_bk3.png");
 
-	//删除节目边框
-	//program_removeFrame_G6();
+																			//删除节目边框
+																			//program_removeFrame_G6();
 
 }
 
@@ -614,28 +614,27 @@ void addPictureArea_G6(int nCount)
 	//在已添加的节目中添加区域
 	EQareaHeader_G6 aHeader1;
 	aHeader1.AreaType = 0x00;
-	aHeader1.AreaX = 0;
-	aHeader1.AreaY = 0;
-	aHeader1.AreaWidth = 128;//;
-	aHeader1.AreaHeight = 16;
+	aHeader1.AreaX = 4;
+	aHeader1.AreaY = 4;
+	aHeader1.AreaWidth = 64 - 8;//;
+	aHeader1.AreaHeight = 32 - 8;
 	aHeader1.BackGroundFlag = 0x00;
 	aHeader1.Transparency = 101;
 	aHeader1.AreaEqual = 0x00;
 	//aHeader1.SoundFlag = 0x00;
-	program_addArea_G6(1, &aHeader1);
 
+	program_addArea_G6(0, &aHeader1);
 
 
 
 	//在已添加的区域中添加文本
-	Ouint8 str[] = "节目-图文-文本测试   节目-图文-文本测试年星";
-	//将整数转化为字符串
-	//sprintf((char*)str, "%d", nCount + g_nCountG6++);
-
-
+	char* pChar = "中";
+	Ouint8* str = (Ouint8*)"中123456";//"节目 - 图文 - 文本测试节目 - 图文 - 文本测试年星";
+									 //将整数转化为字符串
+									 //sprintf((char*)str, "%d", nCount + g_nCountG6++);
 	EQpageHeader_G6 pheader1;
 	pheader1.PageStyle = 0x00;
-	pheader1.DisplayMode = 0x04;// 0x4;
+	pheader1.DisplayMode = 0x03;// 0x4;
 	pheader1.ClearMode = 0x01;
 
 	pheader1.Speed = 10;
@@ -652,14 +651,14 @@ void addPictureArea_G6(int nCount)
 	pheader1.fontItalic = false;
 	pheader1.tdirection = pNORMAL;
 	pheader1.txtSpace = 0;
-	pheader1.Valign = 3;
-	pheader1.Halign = 3;
+	pheader1.Valign = 2;
+	pheader1.Halign = 2;
 
-	program_picturesAreaAddTxt_G6(1, str, (Ouint8*)"宋体", &pheader1);
-	//program_fontPath_picturesAreaChangeTxt_G6(1, str, &pheader1);
-	//program_fontPath_picturesAreaAddTxt_G6(1,str,(Ouint8*)"./allfonts/1.ttf",&pheader1);
+	bxDual_program_picturesAreaAddTxt_G6(0, str, (Ouint8*)"宋体", &pheader1);
+	//program_fontPath_picturesAreaChangeTxt_G6(0, str, &pheader1);
+	//program_fontPath_picturesAreaAddTxt_G6(0,str,(Ouint8*)"./allfonts/1.ttf",&pheader1);
 
-	//program_fontPath_picturesAreaAddTxt_G6(1, str, (Ouint8*)"./allfonts/1.ttf", &pheader1); //C:/Users/onbon/Desktop/IlaSundaram/Uni Ila.Sundaram-01.ttf
+	//program_fontPath_picturesAreaAddTxt_G6(0, str, (Ouint8*)"./allfonts/1.ttf", &pheader1); //C:/Users/onbon/Desktop/IlaSundaram/Uni Ila.Sundaram-01.ttf
 	//program_fontPath_picturesAreaAddTxt_G6(0,str,(Ouint8*)"C:/Users/onbon/Desktop/TAC-Kaveri/TAC-Kaveri.ttf",&pheader1);
 	//pheader1.color = eRED;
 	//program_fontPath_picturesAreaChangeTxt_G6(0,str,&pheader1);
@@ -667,11 +666,11 @@ void addPictureArea_G6(int nCount)
 	//对已添加的文本进行修改，修改内容包括文本内容，字体，字体大小，字体颜色，和一些特技效果
 	//program_picturesAreaChangeTxt_G6(0,str,(Ouint8*)"宋体",10,pYELLOW,&pheader1);
 
-	pheader1.StayTime = 100;
-	//program_pictureAreaAddPic_G6(1, 0, &pheader1, (Ouint8*)"K:/3232C.png");
+	//pheader1.StayTime = 100;
+	//program_pictureAreaAddPic_G6(0, 0, &pheader1, (Ouint8*)"K:/3232C.png");
 
 	//pheader1.StayTime = 300;
-	//program_pictureAreaAddPic_G6(1, 1, &pheader1, (Ouint8*)"K:/图片测试文件/3232绿.png");
+	//program_pictureAreaAddPic_G6(0, 1, &pheader1, (Ouint8*)"K:/图片测试文件/3232绿.png");
 	// 	pheader1.StayTime = 900;
 	// 	program_pictureAreaAddPic_G6(0, 1, &pheader1, (Ouint8*)"yellow.png");
 
@@ -685,10 +684,7 @@ void addPictureArea_G6(int nCount)
 	afHeader.FrameUnitLength = 32;
 	afHeader.FrameUnitWidth = 4;;
 
-
 	//bxDual_program_picturesAreaAddFrame_G6(1, &afHeader, (Ouint8*)".\\backgroundPng\\led_bk3.png");
-
-
 	//bxDual_program_backGroundPic_G6(1, 1, &pheader1, (Ouint8*)"k:\\3232green.png" );
 
 
@@ -714,10 +710,10 @@ void addTimeArea_G6()
 	//Oint8 ret;
 	EQareaHeader_G6 aHeader1;
 	aHeader1.AreaType = 0x02;
-	aHeader1.AreaX = 4;
+	aHeader1.AreaX = 16;
 	aHeader1.AreaY = 0;
-	aHeader1.AreaWidth = 125;//128;
-	aHeader1.AreaHeight = 16;// 96;
+	aHeader1.AreaWidth = 64;//128;
+	aHeader1.AreaHeight = 32;// 96;
 	aHeader1.BackGroundFlag = 0x00;
 	aHeader1.Transparency = 101;
 	aHeader1.AreaEqual = 0x00;
@@ -737,22 +733,22 @@ void addTimeArea_G6()
 	//program_timeAreaCancleBattleTime_G6(1);
 
 	EQtimeAreaData_G56 timeData;
-	timeData.linestyle = eSINGLELINE;// eMULTILINE;
-	timeData.color = eGREEN;
+	timeData.linestyle = eMULTILINE;//eSINGLELINE;// 
+	timeData.color = eYELLOW;// eRED;// eGREEN;
 	timeData.fontName = (Ouint8*)malloc(sizeof(Ouint8) * 40);
 	//strcpy((Oint8*)timeData.fontName,"./allfonts/FouderKT.ttf");
 	strcpy((Oint8*)timeData.fontName, "宋体");
 
-	timeData.fontSize = 9;
+	timeData.fontSize = 12;
 	timeData.fontBold = 0;
 	timeData.fontItalic = 0;
 	timeData.fontUnderline = 0;
-	timeData.fontAlign = 1;  //0--左对齐，1-居中，2-右对齐
+	timeData.fontAlign = 2;  //0--左对齐，1-居中，2-右对齐
 	timeData.date_enable = true;
 	timeData.datestyle = (E_DateStyle)eYYYY_MM_DD_CHS;//eMM_DD_CHS;// //eYYYY_MM_DD_VIRGURE;// 
-	timeData.week_enable = true;
+	timeData.week_enable = false;
 	timeData.weekstyle = (E_WeekStyle)eMonday_CHS;
-	timeData.time_enable = true;
+	timeData.time_enable = false;
 	timeData.timestyle = (E_TimeStyle)eHH_MM_SS_COLON;
 
 	program_timeAreaAddContent_G6(nAreaID, &timeData);
@@ -863,7 +859,7 @@ void dynamicArea_test()
 	//测试使用字体文件
 	int nRet = dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_DOUBLE/*eSCREEN_COLOR_THREE*/, nAreaID,
 		&oAreaHeader_G6, &stPageHeader,
-		(Ouint8*)"./allfonts/1.ttf",
+		(Ouint8*)"K:/onbon/onbon_SDK_Demo/20190909_BX_SDK_Dual/LedSdkDemo/allfonts/1.ttf",
 		(Ouint8*)"123456789中华人民共和国"
 	);
 
@@ -960,6 +956,90 @@ void onbonTest_NetSearch()
 #endif 
 }
 
+
+void onbonTest_bxDual_dynamicArea_AddAreaWithTxt_5G(void)
+{
+	printf("*****************************************\n");
+	printf("*************** test start **************\n");
+	printf("*****************************************\n");
+	printf("\n");
+
+	InitSdk();
+
+	Ouint8* pIP = (Ouint8*)"192.168.0.199";
+	Ouint32 nPort = 5005;
+	E_ScreenColor_G56 color = E_ScreenColor_G56::eSCREEN_COLOR_SINGLE;
+
+	//先删除所有动态区
+	bxDual_dynamicArea_DelArea_5G(pIP, nPort, 0xff);
+
+
+	Ouint8 uAreaId = 0;
+	Ouint8 RunMode = 0x00;
+	/*0x00 动态区运行模式
+	0— 动态区数据循环显示。
+	1— 动态区数据显示完成后静止显示最后一页数据。
+	2— 动态区数据循环显示，超过设定时间后数据仍未更新时不再显示
+	3— 动态区数据循环显示，超过设定时间后数据仍未更新时显示Logo 信息, Logo 信息即为动态区域的最后一页信息
+	4— 动态区数据顺序显示，显示完最后一页后就不再显示
+	*/
+	Ouint16 Timeout = 3;		//Timeout 2 动态区数据超时时间，单位为秒
+	Ouint8 RelateAllPro = 0;	//RelateAllPro 1 当该字节为 1 时，所有异步节目播放时都允许播放该动态区域；为 0 时，由接下来的规则来决定
+	Ouint16 RelateProNum = 0;	//动态区域关联了多少个异步节目一旦关联了某个异步节目，则当该异步节目播放时允许播放该动态区域，否则，不允许播放该动态区域；以下的节目编号个数根据 RelateProNum 的值来确定，当该值为 0 时不发送；
+	Ouint16* RelateProSerial = NULL;
+	Ouint8 ImmePlay = 1;		//1 是否立即播放该字节为 0 时，该动态区域与异步节目一起播放；该字节为 1 时，异步节目停止播放，仅播放该动态区域该字节; 为 2 时，暂存该动态区域，当播放完节目编号最高的异步节目后播放该动态区域注意：当该字节为 0 时，RelateAllPro 到RelateProSerialN-1 的参数才有效，否则无效当该参数为 1 或 2 时，由于不与异步节目同时播放，为控制该动态区域能及时结束，可选择RunMode 参数为 2 或 4，当然也
+	Ouint16 uAreaX = 16;
+	Ouint16 uAreaY = 2;
+	Ouint16 uWidth = 64;
+	Ouint16 uHeight = 30;
+	EQareaframeHeader oFrame; oFrame.AreaFFlag = 0;
+	//PageStyle begin-------------------------------------------------------------------------------------------------------------------------------------------
+	Ouint8 DisplayMode = 3;		//显示方式:  0x00 –随机显示 0x01 –静止显示 0x02 –快速打出 0x03 –向左移动 0x04 –向左连移 0x05 –向上移动 0x06 –向上连移 0x07 –闪烁 ......
+	Ouint8 ClearMode = 0;		//退出方式/清屏方式: 每一页的退出方式；
+	Ouint8 Speed = 32;			//速度等级
+	Ouint16 StayTime = 200;		//停留时间，单位为 10ms
+	Ouint8 RepeatTime = 3;
+	//PageStyle End.
+
+	//显示内容和字体格式 begin----------------------------------------------
+	EQfontData oFont;
+	oFont.arrMode = eMULTILINE;
+	oFont.fontSize = 10;
+	oFont.color = eRED;
+	oFont.fontBold = false;
+	oFont.fontItalic = false; oFont.tdirection = pNORMAL;
+	oFont.txtSpace = 0; oFont.Halign = 1; oFont.Valign = 2;
+	Ouint8* fontName = (Ouint8*)"宋体";
+	Ouint8* strAreaTxtContent = (Ouint8*)"5E1动态-图文-文本测试。";// "5代动态区1开始测试，一起来看看吧...会有新发现的。";
+
+
+	dynamicArea_AddAreaWithTxt_5G(pIP, nPort, color,
+		uAreaId,
+		RunMode,
+		Timeout,
+		RelateAllPro,
+		RelateProNum,
+		RelateProSerial,
+		ImmePlay,
+		uAreaX, uAreaY, uWidth, uHeight,
+		oFrame,
+		//PageStyle begin--------
+		DisplayMode,
+		ClearMode,
+		Speed,
+		StayTime,
+		RepeatTime,
+		//PageStyle End.
+
+		//显示内容和字体格式 begin---------
+		oFont,
+		fontName,
+		strAreaTxtContent
+		//end.
+	);
+
+}
+
 void onbonTest_DynamicArea_5G(void)
 {
 	printf("*****************************************\n");
@@ -974,12 +1054,20 @@ void onbonTest_DynamicArea_5G(void)
 #if 1   //测试5代动态区的接口
 	{
 
-		Ouint8* pIP = (Ouint8*)"192.168.0.199";
+		Ouint8* pIP = (Ouint8*)"192.168.0.111";
 		Ouint32 nPort = 5005;
-		E_ScreenColor_G56 color = E_ScreenColor_G56::eSCREEN_COLOR_SINGLE;
+		E_ScreenColor_G56 color = E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE; //E_ScreenColor_G56::eSCREEN_COLOR_SINGLE;
 
+		Oint8* pSerialName = "COM3";
+		Oint8 nBaudRateIndex = 2;
+		int nRet = 0;
+
+#if DEBUG_UART
+		nRet = bxDual_dynamicArea_DelArea_G5_Serial(pSerialName, nBaudRateIndex, 0xff);
+#else
 		//先删除所有动态区
-		bxDual_dynamicArea_DelArea_5G(pIP, nPort, 0xff);
+		nRet = bxDual_dynamicArea_DelArea_5G(pIP, nPort, 0xff);
+#endif // DEBUG_UART
 
 
 		Ouint8 uAreaId = 0;
@@ -1005,7 +1093,7 @@ void onbonTest_DynamicArea_5G(void)
 		Ouint8 DisplayMode = 3;		//显示方式:  0x00 –随机显示 0x01 –静止显示 0x02 –快速打出 0x03 –向左移动 0x04 –向左连移 0x05 –向上移动 0x06 –向上连移 0x07 –闪烁 ......
 		Ouint8 ClearMode = 0;		//退出方式/清屏方式: 每一页的退出方式；
 		Ouint8 Speed = 32;			//速度等级
-		Ouint16 StayTime = 200;		//停留时间，单位为 10ms
+		Ouint16 StayTime = 500;		//停留时间，单位为 10ms
 		Ouint8 RepeatTime = 3;
 		//PageStyle End.
 
@@ -1032,14 +1120,20 @@ void onbonTest_DynamicArea_5G(void)
 		oPicInfo.RepeatTime = RepeatTime;
 		oPicInfo.filePath = (Ouint8*)"K:/onbon/图片测试文件/3232黄.png";
 
-
+#if DEBUG_UART
+		nRet = bxDual_dynamicArea_DelArea_G5_Serial(pSerialName, nBaudRateIndex, uAreaId);
+#else
 		dynamicArea_DelArea_5G(pIP, nPort, uAreaId);
+#endif
+
 
 		uAreaX = 16;
 		uAreaY = 0;
 		uWidth = 64;
 		uHeight = 32;
-		dynamicArea_AddAreaWithPic_5G(pIP, nPort, color,
+
+#if DEBUG_UART
+		nRet = bxDual_dynamicArea_AddAreaWithPic_5G_Serial((Ouint8*)pSerialName, nBaudRateIndex, color,
 			uAreaId,
 			RunMode,
 			Timeout,
@@ -1062,6 +1156,30 @@ void onbonTest_DynamicArea_5G(void)
 			//end.
 		);
 
+#else
+		dynamicArea_AddAreaWithPic_5G(pIP, nPort, color,
+			uAreaId,
+			RunMode,
+			Timeout,
+			RelateAllPro,
+			RelateProNum,
+			RelateProSerial,
+			ImmePlay,
+			uAreaX, uAreaY, uWidth, uHeight,
+			oFrame,
+			//PageStyle begin--------
+			DisplayMode,
+			ClearMode,
+			Speed,
+			StayTime,
+			RepeatTime,
+			//PageStyle End.
+
+			//显示的图片文件所在目录和名称 begin---------
+			(Ouint8*)"K:/onbon/图片测试文件/3232c.png"
+			//end.
+		);
+#endif
 
 		DisplayMode = 0x02;		//显示方式:  0x00 –随机显示 0x01 –静止显示 0x02 –快速打出 0x03 –向左移动 0x04 –向左连移 0x05 –向上移动 0x06 –向上连移 0x07 –闪烁 ......
 								//0x25 –向右移动  0x26 –向右连移  0x27 –向下移动  0x28 –向下连移
@@ -1110,7 +1228,6 @@ void onbonTest_DynamicArea_5G(void)
 		oTxtInfo2.strAreaTxtContent = //(Ouint8*)"0123456789";// "T2-0123456789-abcdefghijklmnopqrst-结束|";// "单区域内第4条信息。";
 			(Ouint8*)"ABCDEFGHIJKLMNOPQRSTUVWXYZ结束.";// (Ouint8*)"012345678911111JQB";
 
-
 		const Ouint8 cnst_InfoCount = 4;
 		DynamicAreaBaseInfo_5G* stDynamicAreaBaseInfo_5G[cnst_InfoCount];
 		stDynamicAreaBaseInfo_5G[0] = &oTxtInfo;
@@ -1118,7 +1235,11 @@ void onbonTest_DynamicArea_5G(void)
 		stDynamicAreaBaseInfo_5G[2] = &oPicInfo2;
 		stDynamicAreaBaseInfo_5G[3] = &oTxtInfo2;
 
-		dynamicArea_AddAreaInfos_5G(pIP, nPort, color,
+
+#if DEBUG_UART
+		nRet = bxDual_dynamicArea_DelArea_G5_Serial(pSerialName, nBaudRateIndex, 0xff);
+
+		nRet = bxDual_dynamicArea_AddAreaInfos_5G_Serial((Ouint8*)pSerialName, nBaudRateIndex, color,
 			uAreaId,
 			RunMode,
 			Timeout,
@@ -1131,10 +1252,23 @@ void onbonTest_DynamicArea_5G(void)
 			cnst_InfoCount,
 			stDynamicAreaBaseInfo_5G
 		);
+#else
+		bxDual_dynamicArea_AddAreaInfos_5G(pIP, nPort, color,
+			uAreaId,
+			RunMode,
+			Timeout,
+			RelateAllPro,
+			RelateProNum,
+			RelateProSerial,
+			ImmePlay,
+			uAreaX, uAreaY, uWidth, uHeight,
+			oFrame,
+			cnst_InfoCount,
+			stDynamicAreaBaseInfo_5G
+		);
+#endif
 
 		//return;
-
-
 
 		dynamicArea_AddAreaWithTxt_5G(pIP, nPort, color,
 			uAreaId,
@@ -1163,7 +1297,6 @@ void onbonTest_DynamicArea_5G(void)
 
 		//Sleep(3000);
 
-		dynamicArea_DelArea_5G(pIP, nPort, 0xff);
 
 		DisplayMode = 0x02;
 		uAreaX = 16;
@@ -1173,6 +1306,37 @@ void onbonTest_DynamicArea_5G(void)
 		oFont.arrMode = eSINGLELINE; oFont.fontSize = 10;
 		fontName = (Ouint8*)"黑体";
 		strAreaTxtContent = (Ouint8*)"5代动态区2中华人民共和国70周年纪念，一起迎接这一伟大时刻的到来！";
+
+
+#if DEBUG_UART
+		nRet = bxDual_dynamicArea_DelArea_G5_Serial(pSerialName, nBaudRateIndex, 0xff);
+
+		nRet = bxDual_dynamicArea_AddAreaWithTxt_5G_Serial((Ouint8*)pSerialName, nBaudRateIndex, color,
+			uAreaId,
+			RunMode,
+			Timeout,
+			RelateAllPro,
+			RelateProNum,
+			RelateProSerial,
+			ImmePlay,
+			uAreaX, uAreaY, uWidth, uHeight,
+			oFrame,
+			//PageStyle begin--------
+			DisplayMode,
+			ClearMode,
+			Speed,
+			StayTime,
+			RepeatTime,
+			//PageStyle End.
+
+			//显示内容和字体格式 begin---------
+			oFont,
+			fontName,
+			strAreaTxtContent
+			//end.
+		);
+#else	
+		dynamicArea_DelArea_5G(pIP, nPort, 0xff);
 
 		int nSendRet1 = dynamicArea_AddAreaWithTxt_5G(pIP, nPort, color,
 			uAreaId,
@@ -1198,6 +1362,7 @@ void onbonTest_DynamicArea_5G(void)
 			strAreaTxtContent
 			//end.
 		);
+#endif
 
 
 		//Sleep(5000);
@@ -1394,320 +1559,15 @@ void onbonTest_DynamicArea_5G(void)
 
 #endif
 
-#if 1  //测试6代控制卡动态区更新、删除接口：TCP方式
-
-	////dynamicArea_AddAreaWithTxt_6EnX(1, 0, 2, 64, 32, (Ouint8*)"宋体", (Ouint8*)"0123仰邦");
-	////dynamicArea_AddAreaWithTxt_6EnX(0, 16, 8, 64, 32, (Ouint8*)"宋体", (Ouint8*)"1");
-	////dynamicArea_AddAreaWithTxt_6EnX(0, 16, 2, 64, 32, (Ouint8*)"宋体", (Ouint8*)"12345_Onbon仰邦_6789");
-
-	//dynamicArea_AddAreaWithTxt_6EnX((Ouint8*)"192.168.2.123", 5005, E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE, 0, 16, 0, 64,16,(Ouint8*)"宋体", 10, (Ouint8*)"0中华人民共和国一");
-	//dynamicArea_AddAreaWithTxt_6EnX((Ouint8*)"192.168.2.123", 5005, E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE, 1, 16, 16,32,16,(Ouint8*)"黑体", 10, (Ouint8*)"1中华人民共和国一起成长");
-
-	////dynamicArea_AddAreaWithTxt_6EnX( (Ouint8*)"192.168.2.123", 5005, E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE, 1, 16, 16, 32, 16,		(Ouint8*)"宋体", 10, (Ouint8*)"2仰邦++++++++++++++++");
-	////dynamicArea_AddAreaWithTxt_6EnX( (Ouint8*)"192.168.2.123", 5005, E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE,   2, 16+32, 16, 32, 16,	(Ouint8*)"宋体", 12, (Ouint8*)"3上海================");
-
-
-	EQareaHeader_G6 oAreaHeader_G6;
-	oAreaHeader_G6.AreaType = 0x10; //0x10 动态区域
-
-	oAreaHeader_G6.AreaX = 16;
-	oAreaHeader_G6.AreaY = 16;
-	oAreaHeader_G6.AreaWidth = 32;	// 64;
-	oAreaHeader_G6.AreaHeight = 16;	// 32;
-									//AreaFrame N 区域边框属性，详细参考
-	oAreaHeader_G6.BackGroundFlag = 0x00;
-	oAreaHeader_G6.Transparency = 101;
-	oAreaHeader_G6.AreaEqual = 0x00;
-
-	Ouint8* strSoundTxt = (Ouint8*)"仰邦。";
-	Ouint8 nSize = sizeof(strSoundTxt);
-	Ouint8 nStrLen = strlen((const char*)strSoundTxt);
-	oAreaHeader_G6.stSoundData.SoundDataLen = nStrLen;		// 4 语音数据长度; 只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-	oAreaHeader_G6.stSoundData.SoundData = strSoundTxt;			// N 语音数据只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-
-	{
-		oAreaHeader_G6.stSoundData.SoundFlag = 0x01;	//1 0x00 是否使能语音播放;0 表示不使能语音; 1 表示播放下文中;
-		oAreaHeader_G6.stSoundData.SoundPerson = 0x01;	//1 0x00 发音人 该值范围是 0 - 5，共 6 种选择只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送该值默认为 0
-		oAreaHeader_G6.stSoundData.SoundVolum = 1;		//1 0x05 音量该值范围是 0~10，共 11 种，0表示静音只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送该值默认为 5
-		oAreaHeader_G6.stSoundData.SoundSpeed = 0x2;	//1 0x05 语速该值范围是 0~10，共 11 种只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送该值默认为 5
-		oAreaHeader_G6.stSoundData.SoundDataMode = 0x00;//1 0x00 SoundData 的编码格式：该值意义如下：0x00 GB2312; 0x01 GBK; 0x02 BIG5; 0x03 UNICODE只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-		oAreaHeader_G6.stSoundData.SoundReplayTimes = 0x01;// 0xffffffff;	//4 0x00000000 重播次数该值为 0，表示播放 1 次该值为 1，表示播放 2 次
-														   //......
-														   //该值为 0xffffffff，表示播放无限次只有 SoundFlag（是否使能语播放）为 1 时才发送该字节，否则不发送该值默认为 0
-		oAreaHeader_G6.stSoundData.SoundReplayDelay = 200;	//4 0x00000000 重播时间间隔该值表示两次播放语音的时间间隔，单位为 10ms只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送该值默认为 0
-		oAreaHeader_G6.stSoundData.SoundReservedParaLen = 0x03;//1 0x03 语音参数保留参数长度
-		oAreaHeader_G6.stSoundData.Soundnumdeal = 0x00;		//1 0 0：自动判断1：数字作号码处理 2：数字作数值处理只有当 SoundFlag 为 1 且SoundReservedParaLen不为 0才发送此参数
-		oAreaHeader_G6.stSoundData.Soundlanguages = 0x00;		// 1 0 0：自动判断语种1：阿拉伯数字、度量单位、特殊符号等合成为中文2：阿拉伯数字、度量单位、特殊符号等合成为英文只有当 SoundFlag 为 1 且 SoundReservedParaLen不为 0才发送此参数（目前只支持中英文）
-		oAreaHeader_G6.stSoundData.Soundwordstyle = 0x00;		// 1 0 0：自动判断发音方式1：字母发音方式2：单词发音方式只有当 SoundFlag 为 1 且SoundReservedParaLen不为 0才发送此参数
-		oAreaHeader_G6.stSoundData.SoundDataLen = nStrLen;		// 4 语音数据长度; 只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-		oAreaHeader_G6.stSoundData.SoundData = strSoundTxt;			// N 语音数据只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-
-	}
-
-
-
-	EQpageHeader_G6 stPageHeader;
-	stPageHeader.PageStyle = 0x00;
-	stPageHeader.DisplayMode = 0x04;
-	stPageHeader.ClearMode = 0x00;
-	stPageHeader.Speed = 64;
-	stPageHeader.StayTime = 0;// 500;
-	stPageHeader.RepeatTime = 1;
-	stPageHeader.ValidLen = oAreaHeader_G6.AreaWidth;
-	stPageHeader.CartoonFrameRate = 0x00;
-	stPageHeader.BackNotValidFlag = 0x00;
-	stPageHeader.arrMode = eSINGLELINE; //eMULTILINE;//
-	stPageHeader.fontSize = 10;
-	stPageHeader.color = eRED;
-	stPageHeader.fontBold = false;
-	stPageHeader.fontItalic = false;
-	stPageHeader.tdirection = pNORMAL;
-	stPageHeader.txtSpace = 0;
-	stPageHeader.Valign = 1;
-	stPageHeader.Halign = 1;
-
-
-	Ouint8* pIP = (Ouint8*)"192.168.2.123";
-
-
-	//for (int i = 0; i < 9999; i++)
-	{
-		const Oint8 cnst_nAreaCount = 4;
-		Oint8 pAreaID[cnst_nAreaCount];
-		pAreaID[0] = 0;
-		pAreaID[1] = 1;
-		pAreaID[2] = 2;
-		pAreaID[3] = 3;
-
-		dynamicArea_DelAreas_6G(pIP, 5005, cnst_nAreaCount, pAreaID);
-
-		dynamicArea_DelArea_6G(pIP, 5005, 0xff);
-
-
-		Ouint16 nAreaID = 0;
-
-		//Ouint8* pIP = (Ouint8*)"192.168.66.189";
-
-
-		Ouint16 uRelateProgID[3];  uRelateProgID[0] = 0; uRelateProgID[1] = 1; uRelateProgID[2] = 2;
-		//dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, oAreaHeader_G6,stPageHeader, (Ouint8*)"宋体", (Ouint8*)"立即显示");
-		//oAreaHeader_G6.stSoundData.SoundFlag = 0;
-		oAreaHeader_G6.AreaX = 16;
-		oAreaHeader_G6.AreaY = 16;
-		oAreaHeader_G6.AreaWidth = 32;	// 64;
-		oAreaHeader_G6.AreaHeight = 16;	// 32;
-
-		{
-			Ouint8* strSoundTxt = (Ouint8*)"与节目关联显示";
-			Ouint8 nSize = sizeof(strSoundTxt);
-			Ouint8 nStrLen = strlen((const char*)strSoundTxt);
-			oAreaHeader_G6.stSoundData.SoundDataLen = nStrLen;		// 4 语音数据长度; 只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-			oAreaHeader_G6.stSoundData.SoundData = strSoundTxt;			// N 语音数据只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-		}
-
-
-		//dynamicArea_AddAreaTxtDetails_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, oAreaHeader_G6, stPageHeader, (Ouint8*)"宋体", (Ouint8*)"与节目关联显示", 2, uRelateProgID);
-
-		nAreaID = 1;
-		stPageHeader.DisplayMode = 0x01;
-		//0x04 –向左连移
-		stPageHeader.DisplayMode = 0x04;
-
-		{
-			Ouint8* strSoundTxt = (Ouint8*)"图片与节目关联";
-			Ouint8 nSize = sizeof(strSoundTxt);
-			Ouint8 nStrLen = strlen((const char*)strSoundTxt);
-			oAreaHeader_G6.stSoundData.SoundDataLen = nStrLen;		// 4 语音数据长度; 只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-			oAreaHeader_G6.stSoundData.SoundData = strSoundTxt;			// N 语音数据只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-		}
-
-		dynamicArea_AddAreaPic_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, 16 + 32, 16, 32, 16, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232C.png", 2, uRelateProgID);
-
-
-		//Sleep(3000);
-
-		//oAreaHeader_G6.stSoundData.SoundFlag = 0x00;	//1 0x00 是否使能语音播放;0 表示不使能语音; 1 表示播放下文中;
-
-
-		dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, &oAreaHeader_G6, &stPageHeader, (Ouint8*)"宋体", (Ouint8*)"123456789中华人民共和国");
-
-
-		//同时更新多个动态区测试：开始--------------------------------------------------------------------------------------------------------------------------------------
-
-		//oAreaHeader_G6.stSoundData.SoundFlag = 0x00;	//1 0x00 是否使能语音播放;0 表示不使能语音; 1 表示播放下文中;
-		{
-			Ouint8* strSoundTxt = (Ouint8*)"1动态区1";
-			Ouint8 nSize = sizeof(strSoundTxt);
-			Ouint8 nStrLen = strlen((const char*)strSoundTxt);
-			oAreaHeader_G6.stSoundData.SoundDataLen = nStrLen;		// 4 语音数据长度; 只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-			oAreaHeader_G6.stSoundData.SoundData = strSoundTxt;			// N 语音数据只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-		}
-
-		//=======
-		//>>>>>>> dded573302c5b163134609aaa786247882b89696
-		oAreaHeader_G6.AreaX = 16;
-		oAreaHeader_G6.AreaY = 16;
-		oAreaHeader_G6.AreaWidth = 32;	// 64;
-		oAreaHeader_G6.AreaHeight = 16;	// 32;
-
-		DynamicAreaParams oAreaParams_1;
-		oAreaParams_1.uAreaId = 0;
-		oAreaParams_1.oAreaHeader_G6 = oAreaHeader_G6;
-		oAreaParams_1.stPageHeader = stPageHeader;
-		oAreaParams_1.strAreaTxtContent = (Ouint8*)"一起来到第3个动态区看看吧abcdefghijklmnopqrst......"; //(Ouint8*)"1中华人民共和国欢迎您。";
-		oAreaParams_1.fontName = (Ouint8*)"宋体";
-
-
-		oAreaHeader_G6.AreaX = 16 + 32;
-		oAreaHeader_G6.AreaY = 16;
-		oAreaHeader_G6.AreaWidth = 32;	// 64;
-		oAreaHeader_G6.AreaHeight = 16;	// 32;
-		{
-			Ouint8* strSoundTxt = (Ouint8*)"2动态区2";
-			Ouint8 nSize = sizeof(strSoundTxt);
-			Ouint8 nStrLen = strlen((const char*)strSoundTxt);
-			oAreaHeader_G6.stSoundData.SoundDataLen = nStrLen;		// 4 语音数据长度; 只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-			oAreaHeader_G6.stSoundData.SoundData = strSoundTxt;			// N 语音数据只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-		}
-
-		DynamicAreaParams oAreaParams_2;
-		oAreaParams_2.uAreaId = 1;
-		oAreaParams_2.oAreaHeader_G6 = oAreaHeader_G6;
-		oAreaParams_2.stPageHeader = stPageHeader;
-		oAreaParams_2.strAreaTxtContent = (Ouint8*)"一起来到第3个动态区看看吧abcdefghijklmnopqrst......"; //(Ouint8*)"2中国上海仰邦欢迎您！";
-		oAreaParams_2.fontName = (Ouint8*)"宋体";
-
-
-
-		oAreaHeader_G6.AreaX = 16;
-		oAreaHeader_G6.AreaY = 0;
-		oAreaHeader_G6.AreaWidth = 32;	// 64;
-		oAreaHeader_G6.AreaHeight = 16;	// 32;
-
-
-										//stPageHeader.DisplayMode = 0x06;// –向上连移
-										//stPageHeader.color = eGREEN;
-
-		DynamicAreaParams oAreaParams_3;
-		oAreaParams_3.uAreaId = 2;
-		oAreaParams_3.oAreaHeader_G6 = oAreaHeader_G6;
-		oAreaParams_3.stPageHeader = stPageHeader;
-		oAreaParams_3.strAreaTxtContent = (Ouint8*)"一起来到第3个动态区看看吧abcdefghijklmnopqrst......";
-		oAreaParams_3.fontName = (Ouint8*)"宋体";
-
-
-		oAreaHeader_G6.AreaX = 16 + 32;
-		oAreaHeader_G6.AreaY = 0;
-		oAreaHeader_G6.AreaWidth = 32;	// 64;
-		oAreaHeader_G6.AreaHeight = 16;	// 32;
-
-
-		DynamicAreaParams oAreaParams_4;
-		oAreaParams_4.uAreaId = 3;
-		oAreaParams_4.oAreaHeader_G6 = oAreaHeader_G6;
-		oAreaParams_4.stPageHeader = stPageHeader;
-		oAreaParams_4.strAreaTxtContent = (Ouint8*)"一起来到第3个动态区看看吧abcdefghijklmnopqrst......"; //(Ouint8*)"4";
-		oAreaParams_4.fontName = (Ouint8*)"宋体";
-
-
-
-		const Ouint8 uAreaCount = 4;
-		DynamicAreaParams arrParams[uAreaCount];
-		arrParams[0] = oAreaParams_1;
-		arrParams[1] = oAreaParams_2;
-		arrParams[2] = oAreaParams_3;
-		arrParams[3] = oAreaParams_4;
-
-
-
-		Oint16 nRet = 0;
-		nRet = dynamicAreaS_AddTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_THREE, 1, arrParams);
-
-
-		//删除所有动态区
-		dynamicArea_DelArea_6G(pIP, 5005, 0xff);
-
-
-		const Ouint16 CNST_WITH_PROG_COUNT = 1;
-		Ouint16 arrProgID[CNST_WITH_PROG_COUNT];	arrProgID[0] = 0;
-		nRet = dynamicAreaS_AddTxtDetails_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, 2, arrParams, CNST_WITH_PROG_COUNT, arrProgID);
-		if (nRet != 0)
-		{
-			printf("1同时更新多个动态区失败!\r\n");
-		}
-
-		nRet = dynamicAreaS_AddTxtDetails_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, 2, arrParams, (Oint8)0, arrProgID);
-		if (nRet != 0)
-		{
-			printf("2同时更新多个动态区失败!\r\n");
-		}
-
-		nRet = dynamicAreaS_AddTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_THREE, 2, arrParams);
-		if (nRet != 0)
-		{
-			printf("3同时更新多个动态区失败!\r\n");
-		}
-
-
-
-		//同时更新多个动态区测试：结束 #####################################################################################################################################################################
-
-		//return;
-
-
-		//Ouint16 uRelateProgID[3];  
-		uRelateProgID[0] = 0; uRelateProgID[1] = 1; uRelateProgID[2] = 2;
-		//dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, oAreaHeader_G6,stPageHeader, (Ouint8*)"宋体", (Ouint8*)"立即显示");
-		//oAreaHeader_G6.stSoundData.SoundFlag = 0;
-		oAreaHeader_G6.AreaX = 16;
-		oAreaHeader_G6.AreaY = 16;
-		oAreaHeader_G6.AreaWidth = 32;	// 64;
-		oAreaHeader_G6.AreaHeight = 16;	// 32;
-
-		{
-			Ouint8* strSoundTxt = (Ouint8*)"与节目关联显示";
-			Ouint8 nSize = sizeof(strSoundTxt);
-			Ouint8 nStrLen = strlen((const char*)strSoundTxt);
-			oAreaHeader_G6.stSoundData.SoundDataLen = nStrLen;		// 4 语音数据长度; 只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-			oAreaHeader_G6.stSoundData.SoundData = strSoundTxt;			// N 语音数据只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
-		}
-
-
-
-		dynamicArea_AddAreaTxtDetails_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, &oAreaHeader_G6, &stPageHeader, (Ouint8*)"宋体", (Ouint8*)"与节目关联显示", 2, uRelateProgID);
-
-
-
-
-		nAreaID = 1;
-		stPageHeader.DisplayMode = 0x01;
-		dynamicArea_AddAreaPic_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, 16 + 32, 16, 32, 16, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232C.png", 2, uRelateProgID);
-
-		//dynamicArea_AddAreaPic_6G(pIP, 5005, eSCREEN_COLOR_THREE, 2, 16 + 32 + 1, 0, 16, 16, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232C.png");
-
-		//=======
-		//dynamicArea_AddAreaPic_6G(pIP, 5005, eSCREEN_COLOR_THREE, 1, 16, 0, 32, 32, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/y.png");
-		//dynamicArea_AddAreaPic_6G(pIP, 5005, eSCREEN_COLOR_THREE, 0, 16 + 32 + 1, 0, 16, 16, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232C.png");
-		//>>>>>>> remotes/origin/develop
-		//dynamicArea_AddAreaWithPic_6EnX((Ouint8*)"192.168.2.123", 5005, eSCREEN_COLOR_THREE/*eSCREEN_COLOR_DOUBLE*/, 0, 16, 0, 32, 32, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232绿.png");
-		//dynamicArea_AddAreaWithPic_6EnX((Ouint8*)"192.168.2.123", 5005, eSCREEN_COLOR_DOUBLE, 1, 16 + 32, 0, 32, 32, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232黄.png");
-
-		//Oint8 arrID[2]; arrID[0] = 0; arrID[1] = 2;
-		//dynamicArea_DelAreas_6EnX( (Ouint8*)"192.168.2.123", 5005, 2, arrID);
-		//dynamicArea_DelArea_6G(pIP, 5005, 0xff);
-	}
-#endif
-
-	return;
 }
 
 //同时更新多个动态区测试：图片
 void onbonTesst_DynamicArea_6G_MultiAreasWithPic()
 {
-	Ouint8* pIP = (Ouint8*)"192.168.2.123";
+	Ouint8* pIP = (Ouint8*)"192.168.0.188";
 	Ouint32 nPort = 5005;
 	Ouint16 nAreaID = 0;
-	E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_THREE;
+	E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_FULLCOLOR/*eSCREEN_COLOR_THREE*/;
 
 	//删除所有动态区
 	dynamicArea_DelArea_6G(pIP, 5005, 0xff);
@@ -1808,7 +1668,7 @@ void onbonTesst_DynamicArea_6G_MultiAreasWithPic()
 	oAreaParams_2.uAreaId = 1;
 	oAreaParams_2.oAreaHeader_G6 = oAreaHeader_G6;
 	oAreaParams_2.stPageHeader = stPageHeader;
-	oAreaParams_2.strAreaTxtContent = (Ouint8*)"K:/onbon/图片测试文件/3232黄.png"; //(Ouint8*)"2中国上海仰邦欢迎您！";
+	oAreaParams_2.strAreaTxtContent = (Ouint8*)"./图片测试文件/3232绿.bmp"; //文明出行.bmp"; //(Ouint8*)"2中国上海仰邦欢迎您！";
 	oAreaParams_2.fontName = (Ouint8*)"宋体";
 
 
@@ -1845,7 +1705,7 @@ void onbonTesst_DynamicArea_6G_MultiAreasWithPic()
 
 
 
-	const Ouint8 uAreaCount = 4;
+	const Ouint8 uAreaCount = 2;
 	DynamicAreaParams arrParams[uAreaCount];
 	arrParams[0] = oAreaParams_1;
 	arrParams[1] = oAreaParams_2;
@@ -1854,7 +1714,7 @@ void onbonTesst_DynamicArea_6G_MultiAreasWithPic()
 
 
 	Oint16 nRet = 0;
-	nRet = dynamicAreaS_AddAreaPic_6G(pIP, 5005, eSCREEN_COLOR_THREE, 4, arrParams);
+	nRet = dynamicAreaS_AddAreaPic_6G(pIP, 5005, eColor/*eSCREEN_COLOR_THREE*/, uAreaCount, arrParams);
 
 
 	//删除所有动态区
@@ -1863,13 +1723,13 @@ void onbonTesst_DynamicArea_6G_MultiAreasWithPic()
 
 	const Ouint16 CNST_WITH_PROG_COUNT = 1;
 	Ouint16 arrProgID[CNST_WITH_PROG_COUNT];	arrProgID[0] = 0;
-	nRet = dynamicAreaS_AddAreaPic_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, 4, arrParams, CNST_WITH_PROG_COUNT, arrProgID);
+	nRet = dynamicAreaS_AddAreaPic_WithProgram_6G(pIP, 5005, eColor/*eSCREEN_COLOR_THREE*/, uAreaCount, arrParams, CNST_WITH_PROG_COUNT, arrProgID);
 	if (nRet != 0)
 	{
 		printf("1同时更新多个动态区失败!\r\n");
 	}
 
-	nRet = dynamicAreaS_AddAreaPic_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, 2, arrParams, (Oint8)0, arrProgID);
+	nRet = dynamicAreaS_AddAreaPic_WithProgram_6G(pIP, 5005, eColor/*eSCREEN_COLOR_THREE*/, uAreaCount, arrParams, (Oint8)0, arrProgID);
 	if (nRet != 0)
 	{
 		printf("2同时更新多个动态区失败!\r\n");
@@ -2360,7 +2220,6 @@ void onbonTest_DynamicArea_6G_2Areas(unsigned char* pIP)
 }
 
 
-
 /*
 *------------------------------------------------------------------------------------------------------------------------------------------------------
 * 开始测试
@@ -2369,10 +2228,9 @@ void onbonTest_DynamicArea_6G_2Areas(unsigned char* pIP)
 */
 void onbonTest_DynamicArea_6G(unsigned char* pIP)
 {
-
 	Ouint32 nPort = 5005;
 	Ouint16 nAreaID = 0;
-	E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE;// eSCREEN_COLOR_THREE;
+	E_ScreenColor_G56 eColor = eSCREEN_COLOR_FULLCOLOR;// eSCREEN_COLOR_DOUBLE;//E_ScreenColor_G56::eSCREEN_COLOR_FULLCOLOR;//  eSCREEN_COLOR_THREE;
 	{
 		//PageStyle begin-------------------------------------------------------------------------------------------------------------------------------------------
 		Ouint8 					//测试6E2X卡，0x02方式时，乱码！其它显示方式未发现异常；原因：在快速打出时，停留时间不能为0；
@@ -2380,7 +2238,7 @@ void onbonTest_DynamicArea_6G(unsigned char* pIP)
 									//0x25 –向右移动  0x26 –向右连移  0x27 –向下移动  0x28 –向下连移
 
 		Ouint8 ClearMode = 0;		//退出方式/清屏方式: 每一页的退出方式；
-		Ouint8 Speed = 32;			//速度等级
+		Ouint8 Speed = 8;			//速度等级
 		Ouint16 StayTime = 200;		//停留时间，单位为 10ms
 		Ouint8 RepeatTime = 3;
 		//PageStyle End.
@@ -2395,18 +2253,11 @@ void onbonTest_DynamicArea_6G(unsigned char* pIP)
 		oFont.txtSpace = 0; oFont.Halign = 1; oFont.Valign = 2;
 		Ouint8* fontName = (Ouint8*)"宋体";
 
-		DynamicAreaPicInfo_5G oPicInfo;
-		oPicInfo.nType = 2;
-		oPicInfo.DisplayMode = DisplayMode;
-		oPicInfo.ClearMode = ClearMode;
-		oPicInfo.Speed = Speed;
-		oPicInfo.StayTime = StayTime;
-		oPicInfo.RepeatTime = RepeatTime;
-		oPicInfo.filePath = (Ouint8*)"./图片测试文件/3232黄.png";
 
 
-		oFont.arrMode = eMULTILINE;//eSINGLELINE;
-		oFont.fontSize = 8;
+
+		oFont.arrMode = eSINGLELINE;// eMULTILINE;//;
+									//oFont.fontSize = 8;
 
 		onbon_DynamicAreaInfo_G6 oTxtInfo;
 		oTxtInfo.nType = 1;
@@ -2417,16 +2268,25 @@ void onbonTest_DynamicArea_6G(unsigned char* pIP)
 		oTxtInfo.RepeatTime = RepeatTime;
 		oTxtInfo.fontName = fontName;
 		oTxtInfo.oFont = oFont;
-		oTxtInfo.strAreaTxtContent = (Ouint8*)"T1-0123456789-abcdefg-结束"; //(Ouint8*)"T1-0123456789-abcdefghijklmnopqrst-结束|";
 
-		onbon_DynamicAreaInfo_G6 oPicInfo2;
-		oPicInfo2.nType = 2;
-		oPicInfo2.DisplayMode = DisplayMode;
-		oPicInfo2.ClearMode = ClearMode;
-		oPicInfo2.Speed = Speed;
-		oPicInfo2.StayTime = StayTime;
-		oPicInfo2.RepeatTime = RepeatTime;
-		oPicInfo2.filePath = (Ouint8*)"./图片测试文件/3232c.png";
+
+		oTxtInfo.strAreaTxtContent = (Ouint8*)"埌T1-0123456789-abcdefg-结束"; //(Ouint8*)"T1-0123456789-abcdefghijklmnopqrst-结束|";
+#ifdef chcp65001
+		string strCnt = (char*)oTxtInfo.strAreaTxtContent;
+		int cnst_str_buffer_size = 256;
+		Oint8* pDest = new Oint8[cnst_str_buffer_size];
+		int nDestLen = GB2312ToUTF8((Oint8*)oTxtInfo.strAreaTxtContent, pDest, cnst_str_buffer_size);
+		oTxtInfo.strAreaTxtContent = (Ouint8*)pDest;
+#endif // chcp65001
+
+		onbon_DynamicAreaInfo_G6 oPicInfo1;
+		oPicInfo1.nType = 2;
+		oPicInfo1.DisplayMode = DisplayMode;
+		oPicInfo1.ClearMode = ClearMode;
+		oPicInfo1.Speed = Speed;
+		oPicInfo1.StayTime = StayTime;
+		oPicInfo1.RepeatTime = RepeatTime;
+		oPicInfo1.filePath = (Ouint8*)".\\图片测试文件\\3232c.png";
 
 
 		DisplayMode = 0x26;		//显示方式:  0x00 –随机显示 0x01 –静止显示 0x02 –快速打出 0x03 –向左移动 0x04 –向左连移 0x05 –向上移动 0x06 –向上连移 0x07 –闪烁 ......
@@ -2451,10 +2311,143 @@ void onbonTest_DynamicArea_6G(unsigned char* pIP)
 															   //(Ouint8*)"ABCDEFGHIJKLMNOPQRSTUVWXYZ结束.";// (Ouint8*)"012345678911111JQB";
 
 
+		DynamicAreaPicInfo_5G oPicInfo2;
+		oPicInfo2.nType = 2;
+		oPicInfo2.DisplayMode = DisplayMode;
+		oPicInfo2.ClearMode = ClearMode;
+		oPicInfo2.Speed = Speed;
+		oPicInfo2.StayTime = StayTime;
+		oPicInfo2.RepeatTime = RepeatTime;
+		oPicInfo2.filePath = (Ouint8*)"./图片测试文件/3232黄.png";
+
 		const Ouint8 cnst_InfoCount = 4;  //单区域内有多少个数据单元内容
+
+
+		{
+			onbon_DynamicAreaInfo_G6 stDynamicAreaBaseInfo_6G[cnst_InfoCount];
+			stDynamicAreaBaseInfo_6G[0] = oTxtInfo;
+			stDynamicAreaBaseInfo_6G[1] = oPicInfo1;
+			stDynamicAreaBaseInfo_6G[2] = oTxtInfo2;
+			stDynamicAreaBaseInfo_6G[3] = oPicInfo2;
+
+
+			Ouint8 uAreaId = 0;
+
+			/*动态区运行模式：默认值=0x00
+			0— 动态区数据循环显示。
+			1— 动态区数据显示完成后静止显示最后一页数据。
+			2— 动态区数据循环显示，超过设定时间后数据仍未更新时不再显示
+			3— 动态区数据循环显示，超过设定时间后数据仍未更新时显示Logo 信息, Logo 信息即为动态区域的最后一页信息
+			4— 动态区数据顺序显示，显示完最后一页后就不再显示
+			*/
+			Ouint8 RunMode = 0x00;
+			Ouint16 Timeout = 3;		//Timeout 2 动态区数据超时时间，单位为秒
+			Ouint8 RelateAllPro = 0;	//RelateAllPro 1 当该字节为 1 时，所有异步节目播放时都允许播放该动态区域；为 0 时，由接下来的规则来决定
+			Ouint16 RelateProNum = 0;	//动态区域关联了多少个异步节目一旦关联了某个异步节目，则当该异步节目播放时允许播放该动态区域，否则，不允许播放该动态区域；以下的节目编号个数根据 RelateProNum 的值来确定，当该值为 0 时不发送；
+			Ouint16* RelateProSerial = NULL;
+			Ouint8 ImmePlay = 1;		//1 是否立即播放该字节为 0 时，该动态区域与异步节目一起播放；该字节为 1 时，异步节目停止播放，仅播放该动态区域该字节; 为 2 时，暂存该动态区域，当播放完节目编号最高的异步节目后播放该动态区域注意：当该字节为 0 时，RelateAllPro 到RelateProSerialN-1 的参数才有效，否则无效当该参数为 1 或 2 时，由于不与异步节目同时播放，为控制该动态区域能及时结束，可选择RunMode 参数为 2 或 4，当然也
+			Ouint16 uAreaX = 0;
+			Ouint16 uAreaY = 0;
+			Ouint16 uWidth = 64;
+			Ouint16 uHeight = 32;
+			//EQareaframeHeader oFrame;  
+			BxAreaFrmae_Dynamic_G6 oFrame;
+			oFrame.AreaFFlag = 1;  //边框默认无边框
+			oFrame.pStrFramePathFile = (Ouint8*)".\\backgroundPng\\led_bk1.png";
+
+			EQscreenframeHeader_G6 oFrameHeader;
+			oFrameHeader.FrameDispStype = 0x01;
+			oFrameHeader.FrameDispSpeed = 0x10;
+			oFrameHeader.FrameMoveStep = 0x01;
+			oFrameHeader.FrameUnitLength = 32;
+			oFrameHeader.FrameUnitWidth = 4;//2;
+			oFrameHeader.FrameDirectDispBit = 0x01;
+
+			oFrame.oAreaFrame = oFrameHeader;
+
+
+
+			//添加语音数据/填充语音数据结构
+			BXSound_6G oSoundG6;
+			Ouint8* strSoundTxt = (Ouint8*)"动态区语音——文字和图片接口发送";
+			Ouint8 nSize = sizeof(strSoundTxt);
+			Ouint8 nStrLen = strlen((const char*)strSoundTxt);
+			{
+				oSoundG6.SoundFlag = 0x00;	//1 0x00 是否使能语音播放;0 表示不使能语音; 1 表示播放下文中;
+				oSoundG6.SoundPerson = 0x01;	//1 0x00 发音人 该值范围是 0 - 5，共 6 种选择只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送该值默认为 0
+				oSoundG6.SoundVolum = 1;		//1 0x05 音量该值范围是 0~10，共 11 种，0表示静音只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送该值默认为 5
+				oSoundG6.SoundSpeed = 0x2;	//1 0x05 语速该值范围是 0~10，共 11 种只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送该值默认为 5
+				oSoundG6.SoundDataMode = 0x00;//1 0x00 SoundData 的编码格式：该值意义如下：0x00 GB2312; 0x01 GBK; 0x02 BIG5; 0x03 UNICODE只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
+				oSoundG6.SoundReplayTimes = 0x01;// 0xffffffff;	//4 0x00000000 重播次数该值为 0，表示播放 1 次该值为 1，表示播放 2 次
+												 //......
+												 //该值为 0xffffffff，表示播放无限次只有 SoundFlag（是否使能语播放）为 1 时才发送该字节，否则不发送该值默认为 0
+				oSoundG6.SoundReplayDelay = 200;	//4 0x00000000 重播时间间隔该值表示两次播放语音的时间间隔，单位为 10ms只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送该值默认为 0
+				oSoundG6.SoundReservedParaLen = 0x03;//1 0x03 语音参数保留参数长度
+				oSoundG6.Soundnumdeal = 0x00;		//1 0 0：自动判断1：数字作号码处理 2：数字作数值处理只有当 SoundFlag 为 1 且SoundReservedParaLen不为 0才发送此参数
+				oSoundG6.Soundlanguages = 0x00;		// 1 0 0：自动判断语种1：阿拉伯数字、度量单位、特殊符号等合成为中文2：阿拉伯数字、度量单位、特殊符号等合成为英文只有当 SoundFlag 为 1 且 SoundReservedParaLen不为 0才发送此参数（目前只支持中英文）
+				oSoundG6.Soundwordstyle = 0x00;		// 1 0 0：自动判断发音方式1：字母发音方式2：单词发音方式只有当 SoundFlag 为 1 且SoundReservedParaLen不为 0才发送此参数
+				oSoundG6.SoundDataLen = nStrLen;		// 4 语音数据长度; 只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
+				oSoundG6.SoundData = strSoundTxt;			// N 语音数据只有 SoundFlag（是否使能语音播放）为 1 时才发送该字节，否则不发送
+
+			}
+
+			int nSendInfoCount = cnst_InfoCount;
+			nSendInfoCount = 1;
+			if (nSendInfoCount > cnst_InfoCount)
+			{
+				printf("invalid nSendInfoCount; because of nSendInfoCount > cnst_InfoCount！\r\n");
+				return;
+			}
+
+			int nRet = bxDual_dynamicArea_AddAreaInfos_6G_V2(pIP, nPort, eColor,
+				uAreaId,
+				RunMode,
+				Timeout,
+				RelateAllPro,
+				RelateProNum,
+				RelateProSerial,
+				ImmePlay,
+				uAreaX, uAreaY, uWidth, uHeight,
+				oFrame,
+				nSendInfoCount,
+				stDynamicAreaBaseInfo_6G,
+				&oSoundG6
+			);
+
+			int x = nRet;
+
+			return;
+
+
+#if DEBUG_UART
+
+			//删除所有动态区
+			dynamicArea_DelArea_6G(pIP, 5005, 0xff);
+
+			Oint8* pSerialName = "COM3";
+			Oint8 nBaudRateIndex = 1;
+			int nRet2 = bxDual_dynamicArea_AddAreaInfos_6G_V2_Serial(pSerialName, nBaudRateIndex, eColor,
+				uAreaId,
+				RunMode,
+				Timeout,
+				RelateAllPro,
+				RelateProNum,
+				RelateProSerial,
+				ImmePlay,
+				uAreaX, uAreaY, uWidth, uHeight,
+				oFrame,
+				cnst_InfoCount,
+				stDynamicAreaBaseInfo_6G
+			);
+#endif // DEBUG_UART
+
+		}
+
+
+
 		onbon_DynamicAreaInfo_G6* stDynamicAreaBaseInfo_6G[cnst_InfoCount];
 		stDynamicAreaBaseInfo_6G[0] = &oTxtInfo;
-		stDynamicAreaBaseInfo_6G[1] = &oPicInfo;
+		stDynamicAreaBaseInfo_6G[1] = &oPicInfo1;
 		stDynamicAreaBaseInfo_6G[2] = &oTxtInfo2;
 		stDynamicAreaBaseInfo_6G[3] = &oPicInfo2;
 
@@ -2478,7 +2471,7 @@ void onbonTest_DynamicArea_6G(unsigned char* pIP)
 		Ouint16 uAreaY = 0;
 		Ouint16 uWidth = 64;
 		Ouint16 uHeight = 32;
-		EQareaframeHeader oFrame;  oFrame.AreaFFlag = 0;  //边框默认无边框
+		BxAreaFrmae_Dynamic_G6 oFrame;  oFrame.AreaFFlag = 0;  //边框默认无边框
 
 		int nRet = bxDual_dynamicArea_AddAreaInfos_6G(pIP, nPort, eColor,
 			uAreaId,
@@ -2714,42 +2707,19 @@ void onbonTest_DynamicArea_6G(void)
 	//unsigned char pIP[16] = "222.66.141.10";  //上海牛工测试										  								 
 	//unsigned short nPort = 16814;
 
-	unsigned char pIP[16] = "192.168.0.185";
+	unsigned char pIP[16] = "192.168.0.188";
 	Ouint32 nPort = 5005;
 	Ouint16 nAreaID = 0;
 	E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE;// eSCREEN_COLOR_THREE;
 
 
-																	   /*
-																	   *------------------------------------------------------------------------------------------------------------------------------------------------------
+																	   /*------------------------------------------------------------------------------------------------------------------------------------------------------
 																	   * 开始测试
-																	   * 测试单区域多信息（文本/图片）接口
+																	   * 6代更新动态区详细功能：仅显示动态区; 将要显示的一些特性/属性，封装在 EQareaHeader_G6 和 EQpageHeader_G6 结构体中；
+																	   * 不带语音功能
+																	   * EQareaHeader_G6 aHeader1;内容从6代的节目测试用例拷贝过来的：
 																	   *-------------------------------------------------------------------------------------------------------------------------------------------------------
 																	   */
-	onbonTest_DynamicArea_6G(pIP);
-
-
-
-	/*------------------------------------------------------------------------------------------------------------------------------------------------------
-	* 开始测试
-	* 6代更新动态区简单功能：
-	*-------------------------------------------------------------------------------------------------------------------------------------------------------
-	*/
-	//dynamicArea_DelArea_6G(pIP, 5005, 0xff);
-	//dynamicArea_AddAreaTxt_6G((Ouint8*)pIP, nPort, eColor, 0, 16, 0, 64,16,(Ouint8*)"宋体", 10, (Ouint8*)"123456789");
-	//dynamicArea_DelArea_6G(pIP, 5005, 0xff);
-
-
-	//删除所有动态区
-	dynamicArea_DelArea_6G(pIP, 5005, 0xff);
-
-	/*------------------------------------------------------------------------------------------------------------------------------------------------------
-	* 开始测试
-	* 6代更新动态区详细功能：仅显示动态区; 将要显示的一些特性/属性，封装在 EQareaHeader_G6 和 EQpageHeader_G6 结构体中；
-	* 不带语音功能
-	* EQareaHeader_G6 aHeader1;内容从6代的节目测试用例拷贝过来的：
-	*-------------------------------------------------------------------------------------------------------------------------------------------------------
-	*/
 	EQpageHeader_G6 stPageHeader;
 	stPageHeader.PageStyle = 0x00;
 	stPageHeader.DisplayMode = 0x04;
@@ -2780,7 +2750,7 @@ void onbonTest_DynamicArea_6G(void)
 		aHeader1.BackGroundFlag = 0x00;
 		aHeader1.Transparency = 101;
 		aHeader1.AreaEqual = 0x00;
-		//aHeader1.SoundFlag = 0x00;
+		aHeader1.stSoundData.SoundFlag = 0x00;
 
 
 		//在已添加的区域中添加文本
@@ -2806,8 +2776,37 @@ void onbonTest_DynamicArea_6G(void)
 		pheader1.Valign = 2;
 		pheader1.Halign = 3;
 
-		int nRet2 = dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_DOUBLE, nAreaID, &aHeader1, &pheader1, (Ouint8*)"宋体", (Ouint8*)str);
+		int nRet2 = dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_FULLCOLOR/*eSCREEN_COLOR_DOUBLE*/, nAreaID, &aHeader1, &pheader1, (Ouint8*)"宋体", (Ouint8*)str);
+
+#if DEBUG_UART
+
+		//删除所有动态区
+		dynamicArea_DelArea_6G(pIP, 5005, 0xff);
+
+		Oint8* pSerialName = "COM3";
+		Oint8 nBaudRateIndex = 1;
+		nRet2 = bxDual_dynamicArea_AddAreaTxtDetails_6G_Serial(pSerialName, nBaudRateIndex, eSCREEN_COLOR_DOUBLE, nAreaID, &aHeader1, &pheader1, (Ouint8*)"宋体", (Ouint8*)str);
+#endif // DEBUG_UART
+
 	}
+
+
+	//return;
+
+
+
+	/*------------------------------------------------------------------------------------------------------------------------------------------------------
+	* 开始测试
+	* 6代更新动态区简单功能：
+	*-------------------------------------------------------------------------------------------------------------------------------------------------------
+	*/
+	//dynamicArea_DelArea_6G(pIP, 5005, 0xff);
+	//dynamicArea_AddAreaTxt_6G((Ouint8*)pIP, nPort, eColor, 0, 16, 0, 64,16,(Ouint8*)"宋体", 10, (Ouint8*)"123456789");
+	//dynamicArea_DelArea_6G(pIP, 5005, 0xff);
+
+
+	//删除所有动态区
+	dynamicArea_DelArea_6G(pIP, 5005, 0xff);
 
 
 	/*------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2896,7 +2895,7 @@ void onbonTest_DynamicArea_6G(void)
 
 
 		//oAreaHeader_G6.stSoundData.SoundFlag = 0x00;	//1 0x00 是否使能语音播放;0 表示不使能语音; 1 表示播放下文中;
-		dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, &oAreaHeader_G6, &stPageHeader, (Ouint8*)"宋体", (Ouint8*)"123456789中华人民共和国");
+		dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_FULLCOLOR/*eSCREEN_COLOR_THREE*/, nAreaID, &oAreaHeader_G6, &stPageHeader, (Ouint8*)"宋体", (Ouint8*)"123456789中华人民共和国");
 
 
 		//删除所有动态区
@@ -2954,6 +2953,54 @@ void onbonTest_DynamicArea_6G(void)
 	}
 
 	return;
+}
+
+
+/*
+* ------------------------------------------------------------------------------------------------------------------------------------------------------
+* 开始测试单区域图片更新
+* ------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+void onbonTest_Dynamic_6G_Pic()
+{
+
+	unsigned char pIP[16] = "192.168.0.111";
+	Ouint32 nPort = 5005;
+
+	Ouint16 nAreaID = 0;
+	E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE;// eSCREEN_COLOR_THREE;
+
+
+	EQpageHeader_G6 stPageHeader;
+	stPageHeader.PageStyle = 0x00;
+	stPageHeader.DisplayMode = 0x04;
+	stPageHeader.ClearMode = 0x00;
+	stPageHeader.Speed = 64;
+	stPageHeader.StayTime = 0;// 500;
+	stPageHeader.RepeatTime = 1;
+	stPageHeader.ValidLen = 64;
+	stPageHeader.CartoonFrameRate = 0x00;
+	stPageHeader.BackNotValidFlag = 0x00;
+	stPageHeader.arrMode = eSINGLELINE; //eMULTILINE;//
+	stPageHeader.fontSize = 10;
+	stPageHeader.color = eRED;
+	stPageHeader.fontBold = false;
+	stPageHeader.fontItalic = false;
+	stPageHeader.tdirection = pNORMAL;
+	stPageHeader.txtSpace = 0;
+	stPageHeader.Valign = 1;
+	stPageHeader.Halign = 1;
+
+	stPageHeader.DisplayMode = 0x01;
+
+
+	dynamicArea_DelArea_6G(pIP, 5005, 0xff);
+
+	bxDual_dynamicArea_AddAreaPic_6G(pIP, 5005, eColor, nAreaID, 16, 0, 32, 32, &stPageHeader, (Ouint8*)"./图片测试文件/3232C.png");
+
+	dynamicArea_DelArea_6G(pIP, 5005, 0xff);
+	//dynamicAreaS_AddAreaPic_6G
+	dynamicArea_AddAreaPic_6G(pIP, 5005, eColor, nAreaID, 16 + 32 + 1, 0, 32, 32, &stPageHeader, (Ouint8*)"./图片测试文件/文明出行.bmp");
 }
 
 
@@ -3119,6 +3166,61 @@ void uart_send_program_G6(Oint8* COMPort)
 	program_deleteProgram_G6();
 
 }
+
+//20200303:新增测试
+void uart_send_program_G5(Oint8* COMPort)
+{
+	Oint8 ret;
+	EQprogram program;
+	memset((void*)&program, 0, sizeof(program));
+	program_IntegrateProgramFile(&program);
+
+	ret = cmd_uart_ofsStartFileTransf(COMPort, 2);
+	printf("ret =====cmd_ofsStartFileTransf===== %d \n", ret);
+	if (ret != 0) {
+		writeLogMsg(LogType_Error, "cmd_ofsStartFileTransf run error...");
+	}
+	else {
+		writeLogMsg(logType_debug, "cmd_ofsStartFileTransf run succeed...");
+	}
+
+	ret = cmd_uart_ofsWriteFile(COMPort, 2, program.fileName, program.fileType, program.fileLen, 1, program.fileAddre);
+	if (ret != 0) {
+		writeLogMsg(LogType_Error, "cmd_uart_ofsWriteFile run error...");
+	}
+	else {
+		writeLogMsg(logType_debug, "cmd_uart_ofsWriteFile run succeed...");
+	}
+	printf("ret =====cmd_uart_ofsWriteFile===== %d \n", ret);
+
+
+	/*
+	ret = cmd_uart_ofsWriteFile(COMPort, 2, program.dfileName, program.dfileType, program.dfileLen, 1, program.dfileAddre);
+	if (ret != 0) {
+	writeLogMsg(LogType_Error, "cmd_uart_ofsWriteFile run error...");
+	}
+	else
+	{
+	writeLogMsg(logType_debug, "cmd_uart_ofsWriteFile run succeed...");
+	}
+	printf("ret =====cmd_uart_ofsWriteFile===== %d \n", ret);
+	*/
+
+
+	ret = cmd_uart_ofsEndFileTransf(COMPort, 2);
+	if (ret != 0) {
+		writeLogMsg(LogType_Error, "cmd_uart_ofsEndFileTransf run error...");
+	}
+	else {
+		writeLogMsg(logType_debug, "cmd_uart_ofsEndFileTransf run succeed...");
+	}
+	printf("ret =====cmd_uart_ofsEndFileTransf===== %d \n", ret);
+
+	//删除节目
+	program_deleteProgram();
+
+}
+
 
 void read_configFile(Ouint8* ip, Ouint16 port)
 {
@@ -3464,7 +3566,6 @@ void fantx_onbonTest(void)
 	//onbonTest_SoundIndepend();
 	//return;
 
-
 #if 0  //测试网络搜索命令：三种通讯方式
 
 	NetSearchCmdRet oNetSearchRet1;
@@ -3485,17 +3586,20 @@ void fantx_onbonTest(void)
 	//unsigned char ip[] = "192.168.2.5";  //5E1
 	//unsigned char ip[] = "192.168.100.1";  //X-W4
 	//unsigned char ip[16] = "222.66.141.10";  //上海牛工测试
-	unsigned char ip[16] = "192.168.0.185";
+	unsigned char ip[16] = "192.168.0.188";
 
+	//unsigned char ip[16] = "127.0.0.1";
+
+	//unsigned short port = 9999;
 	unsigned short port = 5005;
 	//unsigned short port = 16814; //上海牛工测试
-	Oint8 COMPort[] = "COM3";
+	Oint8 COMPort[] = "\\\\.\\COM17";
 	int ret = 0;
-	Ouint16 c_type = 0;
+	Ouint16 c_type = 0x0354;// 1140; //1140:6E1X;  340:5E1; 0x0354:5E3;
 
 
 #if DEBUG_TCP
-	//获取卡类型
+							//获取卡类型
 	Ping_data retdata;
 	ret = cmd_tcpPing(ip, port, (Ping_data*)(&retdata));
 	if (ret != 0)
@@ -3511,7 +3615,7 @@ void fantx_onbonTest(void)
 #endif	
 
 	//控制卡搜索测试
-#if /*DEBUG_TCP*/0
+#if 0//DEBUG_TCP
 	Ping_data S_retdata;
 	ret = cmd_searchController((Ping_data*)&S_retdata);
 	if (ret != 0) {
@@ -3531,6 +3635,26 @@ void fantx_onbonTest(void)
 	printf("\n");
 #endif
 
+#if DEBUG_UART
+	Ping_data uart_retdata;
+	ret = cmd_uart_searchController((Ping_data*)&uart_retdata, COMPort);
+	if (ret != 0) {
+		writeLogMsg(LogType_Error, "cmd_uart_searchController run error...");
+	}
+	else {
+		writeLogMsg(logType_debug, "cmd_uart_searchController run succeed...");
+		printf("uart_retdata.Baudrate =====%d \n", uart_retdata.Baudrate);
+		printf("uart_retdata.ControllerType == %x \n", uart_retdata.ControllerType);
+		c_type = uart_retdata.ControllerType;
+	}
+	printf("cmd_uart_searchController ** ret == %d \n", ret);
+	printf("\n");
+
+	//测试串口
+	//Test_Ultra();
+
+#endif
+
 
 #if DEBUG_G5
 
@@ -3548,15 +3672,23 @@ void fantx_onbonTest(void)
 	addTimeArea_G5();
 #endif //DEBUG_TIMEAREA
 
+#if DEBUG_UART
+	uart_send_program_G5(COMPort);
+#endif //DEBUG_UART
+
+#if DEBUG_TCP
 	tcp_send_program_G5(ip, port);
+#endif
+
+	return;
 
 #endif//DEBUG_G5
 
 
 #if DEBUG_G6
 	//set_packetLen(31*1024);
-	addProgram_G6(c_type, eSCREEN_COLOR_DOUBLE);//eSCREEN_COLOR_SINGLE);// // eSCREEN_COLOR_FULLCOLOR);//eSCREEN_COLOR_THREE);//
-												//addProgram_G6(c_type, eSCREEN_COLOR_THREE);//eSCREEN_COLOR_DOUBLE);// 
+	addProgram_G6(c_type, eSCREEN_COLOR_FULLCOLOR);// eSCREEN_COLOR_DOUBLE);//eSCREEN_COLOR_SINGLE);// // eSCREEN_COLOR_FULLCOLOR);//eSCREEN_COLOR_THREE);//
+												   //addProgram_G6(c_type, eSCREEN_COLOR_THREE);//eSCREEN_COLOR_DOUBLE);// 
 
 #if DEBUG_G6_TIMEAREA
 	addTimeArea_G6();
@@ -3593,9 +3725,26 @@ void fantx_onbonTest(void)
 	//多线程测试测试动态区的单区域多信息功能
 	//MultiThreadTest_G6_Dynamic();
 
+
+	/*
+	*------------------------------------------------------------------------------------------------------------------------------------------------------
+	* 开始测试
+	* 测试单区域多信息（文本/图片）接口
+	*-------------------------------------------------------------------------------------------------------------------------------------------------------
+	*/
+	unsigned char pIP[16] = "192.168.0.188";
+	onbonTest_DynamicArea_6G(pIP);
+
+	//onbontTest_UpdateDynamicAreas();
 	//测试动态区的所有功能
-	onbontTest_UpdateDynamicAreas();
 	//onbonTest_DynamicArea_6G();
+
+
+	//仅测试图片功能
+	//onbonTest_Dynamic_6G_Pic();
+
+	//同时更新多个动态区测试：图片
+	//onbonTesst_DynamicArea_6G_MultiAreasWithPic();
 
 	/*
 	*测试多线程时，更新动态区的稳定性：
@@ -3727,25 +3876,7 @@ void fantx_onbonTest(void)
 #endif
 
 
-#if DEBUG_UART
-	Ping_data uart_retdata;
-	ret = cmd_uart_searchController((Ping_data*)&uart_retdata, COMPort);
-	if (ret != 0) {
-		writeLogMsg(LogType_Error, "cmd_uart_searchController run error...");
-	}
-	else {
-		writeLogMsg(logType_debug, "cmd_uart_searchController run succeed...");
-		printf("uart_retdata.Baudrate =====%d \n", uart_retdata.Baudrate);
-		printf("uart_retdata.ControllerType == %x \n", uart_retdata.ControllerType);
-		c_type = uart_retdata.ControllerType;
-	}
-	printf("cmd_uart_searchController ** ret == %d \n", ret);
-	printf("\n");
 
-	//测试串口
-	Test_Ultra();
-
-#endif
 
 #if DEBUG_READCONFIG
 	read_configFile(ip, port);

@@ -624,6 +624,20 @@ extern "C"
 		Ouint16  AreaFBackup;
 	}BXareaframeHeader, EQareaframeHeader;
 
+	/*
+	typedef struct 
+	{
+		Ouint8 AreaFFlag;		// 1 0x00 区域边框标志位
+		Ouint8 AreaFDispStyle;	// 1 0x00 边框显示方式：0x00 –闪烁 0x01 –顺时针转动 0x02 –逆时针转动 0x03 –闪烁加顺时针转动 0x04 –闪烁加逆时针转动 0x05 –红绿交替闪烁
+		Ouint8 AreaFDispSpeed;	// 1 0x01 边框显示速度
+		Ouint8 AreaFMoveStep;	// 1 0x01 边框移动步长，单位为点，此参数范围为 1~16
+		Ouint8 AreaDLength;		// !!!!!! 1 边框组员长度 !!!!!!此字段在5代协议中没有!!!!!!
+		Ouint8 AreaFWidth;		// 1 0x01 边框组元宽度，此参数范围为 1~8 注：边框组元的长度固定为 16
+		//Ouint8 AreaFBackup[8];	// 8 0x00 备用字
+		//Ouint8 *AreaFUnitData;	// N 边框组员数据，格式同图文区
+	}BxAreaFrmae_Dynamic_G6; //20200511 add: 6代卡动态区边框属性; 基本与下面的FrameDirectDispBit结构一致，但FrameDirectDispBit中的FrameDirectDispBit字段在动态区边框中没有;
+	*/
+
 	typedef struct
 	{
 		Ouint8 FrameDispStype;    //边框显示方式
@@ -631,8 +645,18 @@ extern "C"
 		Ouint8 FrameMoveStep;     //边框移动步长
 		Ouint8 FrameUnitLength;   //边框组元长度
 		Ouint8 FrameUnitWidth;    //边框组元宽度
-		Ouint8 FrameDirectDispBit;//上下左右边框显示标志位，目前只支持6QX-M卡    
+		Ouint8 FrameDirectDispBit;//上下左右边框显示标志位，目前只支持6QX-M卡; 动态区暂不支持；
 	}BXscreenframeHeader_G6, EQscreenframeHeader_G6;
+
+
+	//const Ouint8 CNST_PATH_FILE_LEN = 256;
+	typedef struct
+	{
+		Ouint8 AreaFFlag;		// 1 0x00 区域边框标志位;
+		BXscreenframeHeader_G6 oAreaFrame;
+		Ouint8* pStrFramePathFile;
+	}BxAreaFrmae_Dynamic_G6;
+
 
 	typedef struct {
 		/*
@@ -1070,6 +1094,8 @@ extern "C"
 	BXDUAL_API void _CALL_STD bxDual_ReleaseSdk(void);
 #endif
 
+
+	BXDUAL_API Oint64 _CALL_STD GB2312ToUTF8(Oint8* pStr, Oint8* pOutBuff, Oint64 nOutBufferSize );
 
 	/*
 	* 功  能：设置目标地址，即设置屏号/设置屏地址/设置控制器的屏号;
@@ -2163,7 +2189,7 @@ extern "C"
 	*	picPath：添加的图片路径
 	* 返回值：0 成功， 其他值为错误号
 	* 功 能：添加图片到区域
-	* 注：
+	* 注：仅支持png格式的图片
 	*
 	******************************************************************/
 
@@ -2363,7 +2389,7 @@ extern "C"
 	strAreaTxtContent:要显示的文本内容
 	-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 	BXDUAL_API int _CALL_STD bxDual_dynamicArea_AddAreaTxt_6G(Ouint8* pIP, Ouint32 nPort, E_ScreenColor_G56 color, Ouint8 uAreaId, Ouint16 uAreaX, Ouint16 uAreaY,
-		Ouint16 uWidth, Ouint16 uHeight, Ouint8* fontName, Ouint8 nFontSize, Ouint8* strAreaTxtContent);
+														      Ouint16 uWidth, Ouint16 uHeight, Ouint8* fontName, Ouint8 nFontSize, Ouint8* strAreaTxtContent);
 
 	//6代更新动态区详细功能：仅显示动态区; 将要显示的一些特性/属性，封装在 EQareaHeader_G6 和 EQpageHeader_G6 结构体中；
 	BXDUAL_API int _CALL_STD bxDual_dynamicArea_AddAreaTxtDetails_6G(Ouint8* pIP, Ouint32 nPort, E_ScreenColor_G56 color, Ouint8 uAreaId, EQareaHeader_G6* oAreaHeader_G6,
@@ -2508,7 +2534,8 @@ extern "C"
 		Ouint16* RelateProSerial,
 		Ouint8 ImmePlay,
 		Ouint16 uAreaX, Ouint16 uAreaY, Ouint16 uWidth, Ouint16 uHeight,
-		EQareaframeHeader oFrame,
+		//EQareaframeHeader oFrame,
+		BxAreaFrmae_Dynamic_G6 oFrame,
 
 		Ouint8 nInfoCount,
 		DynamicAreaBaseInfo_5G** pInfo
@@ -2549,8 +2576,11 @@ extern "C"
 			RelateAllPro: 当该字节为 1 时，所有异步节目播放时都允许播放该动态区域；为 0 时，由接下来的规则来决定
 			RelateProNum: 动态区域关联了多少个异步节目一旦关联了某个异步节目，则当该异步节目播放时允许播放该动态区域，否则，不允许播放该动态区域
 			RelateProSerial:  动态区域关联的节目编号；
+			nInfoCount: 发送到该动态区的信息（文字或图片）数目；指接下来的参数pInfo中存放的信息个数；
+			pInfo: 存放要发送到该动态区的信息（文字或图片）的内容；
 			pSoundData: 语音内容；默认为空不发送语音；
 			*参数详细说明参考《6th 动态区域用户手册》
+			
 
 	返回值：0 成功；-1 失败；
 	*/
@@ -2563,7 +2593,8 @@ extern "C"
 		Ouint16* RelateProSerial,
 		Ouint8 ImmePlay,
 		Ouint16 uAreaX, Ouint16 uAreaY, Ouint16 uWidth, Ouint16 uHeight,
-		EQareaframeHeader oFrame,
+		//EQareaframeHeader oFrame,
+		BxAreaFrmae_Dynamic_G6 oFrame,
 
 		Ouint8 nInfoCount,
 		onbon_DynamicAreaInfo_G6* pInfo,
@@ -3102,7 +3133,8 @@ extern "C"
 	*	picPath：图片的绝对路径加图片名称
 	* 返回值：0 成功， 其他值为错误号
 	* 功 能：添加图片到图文区域
-	* 注：下位机播放图片的次序与picID一致，即最先播放picID为0的图片，依次播放
+	* 注：1）下位机播放图片的次序与picID一致，即最先播放picID为0的图片，依次播放
+	*	  2）仅支持png格式的图片
 	*
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_pictureAreaAddPic_G6(Ouint16 areaID, Ouint16 picID, EQpageHeader_G6* pheader, Ouint8* picPath);
