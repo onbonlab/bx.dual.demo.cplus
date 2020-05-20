@@ -29,6 +29,8 @@ visual studio 2010及以上版本；
 
 ./lib	存放基于windows visual studio VS2010版本的C++ demo生成windows32位平台的可执行文件及所有依赖库；
 
+./lib_utf8 统一使用utf8编码的动态库（demo中用不到此库）
+
 
 
 ### SDK使用主要步骤
