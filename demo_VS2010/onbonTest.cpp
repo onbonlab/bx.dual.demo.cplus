@@ -2345,7 +2345,7 @@ void onbonTest_DynamicArea_6G(unsigned char* pIP)
 			Ouint16 uHeight = 32;
 			//EQareaframeHeader oFrame;  
 			BxAreaFrmae_Dynamic_G6 oFrame;
-			oFrame.AreaFFlag = 1;  //边框默认无边框
+			oFrame.AreaFFlag = 0;  //边框默认无边框
 			oFrame.pStrFramePathFile = (Ouint8*)".\\backgroundPng\\led_bk1.png";
 
 			EQscreenframeHeader_G6 oFrameHeader;
@@ -3725,12 +3725,12 @@ void fantx_onbonTest(void)
 	* 测试单区域多信息（文本/图片）接口
 	*-------------------------------------------------------------------------------------------------------------------------------------------------------
 	*/
-	unsigned char pIP[16] = "192.168.0.188";
-	onbonTest_DynamicArea_6G(pIP);
+	//unsigned char pIP[16] = "192.168.0.188";
+	//onbonTest_DynamicArea_6G(pIP);
 
 	//onbontTest_UpdateDynamicAreas();
 	//测试动态区的所有功能
-	//onbonTest_DynamicArea_6G();
+	onbonTest_DynamicArea_6G();
 
 
 	//仅测试图片功能
