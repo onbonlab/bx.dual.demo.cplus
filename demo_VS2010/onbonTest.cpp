@@ -3729,13 +3729,12 @@ void fantx_onbonTest(void)
 	* 测试单区域多信息（文本/图片）接口
 	*-------------------------------------------------------------------------------------------------------------------------------------------------------
 	*/
-	onbonTest_DynamicAreaS_6G(pIP, eColor);
+	//onbonTest_DynamicAreaS_6G(pIP, eColor);
 
-	//onbontTest_UpdateDynamicAreas();
 	//测试动态区的所有功能
 	onbonTest_DynamicArea_6G(pIP, eColor );
 
-
+	//onbontTest_UpdateDynamicAreas();
 	//仅测试图片功能
 	//onbonTest_Dynamic_6G_Pic();
 
