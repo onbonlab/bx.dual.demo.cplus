@@ -9949,3 +9949,9 @@
 [2019-09-24 22:04:39] [TEST] [ERROR   ] # DEMO # cmd_confReedFileBlock run error...
 [2019-09-24 22:04:45] [TEST] [ERROR   ] # DEMO # cmd_sendConfigFile_G6 run error...
 [2019-09-24 22:04:51] [TEST] [ERROR   ] # DEMO # cmd_confStartReedFile run error...
+[2020-05-22 13:50:05] [TEST] [DEBUG   ] # DEMO # uWidth = 64;  uHeight = 32;  
+[2020-05-22 13:50:05] [TEST] [DEBUG   ] # DEMO # uWidth = 64;  uHeight = 32;  fontName = ËÎÌו; 
+
+[2020-05-22 13:50:16] [TEST] [DEBUG   ] # DEMO # uWidth = 64;  uHeight = 32;  
+[2020-05-22 13:50:16] [TEST] [DEBUG   ] # DEMO # uWidth = 64;  uHeight = 32;  fontName = ËÎÌו; 
+

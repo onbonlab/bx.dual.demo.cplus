@@ -1709,8 +1709,8 @@ void onbonTesst_DynamicArea_6G_MultiAreasWithPic()
 	DynamicAreaParams arrParams[uAreaCount];
 	arrParams[0] = oAreaParams_1;
 	arrParams[1] = oAreaParams_2;
-	arrParams[2] = oAreaParams_3;
-	arrParams[3] = oAreaParams_4;
+	//arrParams[2] = oAreaParams_3;
+	//arrParams[3] = oAreaParams_4;
 
 
 	Oint16 nRet = 0;
@@ -2226,11 +2226,11 @@ void onbonTest_DynamicArea_6G_2Areas(unsigned char* pIP)
 * 测试单区域多信息（文本/图片）接口
 *-------------------------------------------------------------------------------------------------------------------------------------------------------
 */
-void onbonTest_DynamicArea_6G(unsigned char* pIP)
+void onbonTest_DynamicAreaS_6G(unsigned char* pIP, E_ScreenColor_G56 eColor)
 {
 	Ouint32 nPort = 5005;
 	Ouint16 nAreaID = 0;
-	E_ScreenColor_G56 eColor = eSCREEN_COLOR_FULLCOLOR;// eSCREEN_COLOR_DOUBLE;//E_ScreenColor_G56::eSCREEN_COLOR_FULLCOLOR;//  eSCREEN_COLOR_THREE;
+	//E_ScreenColor_G56 eColor = eSCREEN_COLOR_FULLCOLOR;// eSCREEN_COLOR_DOUBLE;//E_ScreenColor_G56::eSCREEN_COLOR_FULLCOLOR;//  eSCREEN_COLOR_THREE;
 	{
 		//PageStyle begin-------------------------------------------------------------------------------------------------------------------------------------------
 		Ouint8 					//测试6E2X卡，0x02方式时，乱码！其它显示方式未发现异常；原因：在快速打出时，停留时间不能为0；
@@ -2695,24 +2695,21 @@ void onbontTest_UpdateDynamicAreas()
 
 
 //测试6代控制卡动态区更新、删除接口：TCP方式
-void onbonTest_DynamicArea_6G(void)
+void onbonTest_DynamicArea_6G(unsigned char* pIP, E_ScreenColor_G56 eColor )
 {
-	//unsigned char pIP[16] = "222.66.141.10";  //上海牛工测试										  								 
-	//unsigned short nPort = 16814;
-
-	unsigned char pIP[16] = "192.168.0.188";
+	//unsigned char pIP[16] = "192.168.0.188";
 	Ouint32 nPort = 5005;
 	Ouint16 nAreaID = 0;
-	E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE;// eSCREEN_COLOR_THREE;
+	//E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE;// eSCREEN_COLOR_THREE;
 
 
-																	   /*------------------------------------------------------------------------------------------------------------------------------------------------------
-																	   * 开始测试
-																	   * 6代更新动态区详细功能：仅显示动态区; 将要显示的一些特性/属性，封装在 EQareaHeader_G6 和 EQpageHeader_G6 结构体中；
-																	   * 不带语音功能
-																	   * EQareaHeader_G6 aHeader1;内容从6代的节目测试用例拷贝过来的：
-																	   *-------------------------------------------------------------------------------------------------------------------------------------------------------
-																	   */
+	/*------------------------------------------------------------------------------------------------------------------------------------------------------
+	* 开始测试
+	* 6代更新动态区详细功能：仅显示动态区; 将要显示的一些特性/属性，封装在 EQareaHeader_G6 和 EQpageHeader_G6 结构体中；
+	* 不带语音功能
+	* EQareaHeader_G6 aHeader1;内容从6代的节目测试用例拷贝过来的：
+	*-------------------------------------------------------------------------------------------------------------------------------------------------------
+	*/
 	EQpageHeader_G6 stPageHeader;
 	stPageHeader.PageStyle = 0x00;
 	stPageHeader.DisplayMode = 0x04;
@@ -2769,7 +2766,7 @@ void onbonTest_DynamicArea_6G(void)
 		pheader1.Valign = 2;
 		pheader1.Halign = 3;
 
-		int nRet2 = dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_FULLCOLOR/*eSCREEN_COLOR_DOUBLE*/, nAreaID, &aHeader1, &pheader1, (Ouint8*)"宋体", (Ouint8*)str);
+		int nRet2 = dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eColor, nAreaID, &aHeader1, &pheader1, (Ouint8*)"宋体", (Ouint8*)str);
 
 #if DEBUG_UART
 
@@ -2888,7 +2885,7 @@ void onbonTest_DynamicArea_6G(void)
 
 
 		//oAreaHeader_G6.stSoundData.SoundFlag = 0x00;	//1 0x00 是否使能语音播放;0 表示不使能语音; 1 表示播放下文中;
-		dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eSCREEN_COLOR_FULLCOLOR/*eSCREEN_COLOR_THREE*/, nAreaID, &oAreaHeader_G6, &stPageHeader, (Ouint8*)"宋体", (Ouint8*)"123456789中华人民共和国");
+		dynamicArea_AddAreaTxtDetails_6G(pIP, 5005, eColor/*eSCREEN_COLOR_THREE*/, nAreaID, &oAreaHeader_G6, &stPageHeader, (Ouint8*)"宋体", (Ouint8*)"123456789中华人民共和国");
 
 
 		//删除所有动态区
@@ -2921,12 +2918,12 @@ void onbonTest_DynamicArea_6G(void)
 		dynamicArea_DelArea_6G(pIP, 5005, 0xff);
 
 		Ouint16 *uRelateProgID_Tmp = NULL;
-		dynamicArea_AddAreaTxtDetails_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, &oAreaHeader_G6, &stPageHeader, (Ouint8*)"宋体", (Ouint8*)"与节目关联显示", 0, uRelateProgID_Tmp);
+		dynamicArea_AddAreaTxtDetails_WithProgram_6G(pIP, 5005, eColor, nAreaID, &oAreaHeader_G6, &stPageHeader, (Ouint8*)"宋体", (Ouint8*)"与节目关联显示", 0, uRelateProgID_Tmp);
 
 
 		nAreaID = 1;
 		stPageHeader.DisplayMode = 0x01;
-		dynamicArea_AddAreaPic_WithProgram_6G(pIP, 5005, eSCREEN_COLOR_THREE, nAreaID, 16 + 32, 16, 32, 16, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232C.png", 2, uRelateProgID);
+		dynamicArea_AddAreaPic_WithProgram_6G(pIP, 5005, eColor, nAreaID, 16 + 32, 16, 32, 16, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232C.png", 2, uRelateProgID);
 
 		//dynamicArea_AddAreaPic_6G(pIP, 5005, eSCREEN_COLOR_THREE, 2, 16 + 32 + 1, 0, 16, 16, &stPageHeader, (Ouint8*)"K:/onbon/图片测试文件/3232C.png");
 
@@ -2939,8 +2936,8 @@ void onbonTest_DynamicArea_6G(void)
 		*/
 		dynamicArea_DelArea_6G(pIP, 5005, 0xff);
 
-		dynamicArea_AddAreaPic_6G(pIP, 5005, eSCREEN_COLOR_THREE, 1, 16, 0, 32, 32, &stPageHeader, (Ouint8*)"./图片测试文件/3232C.png");
-		dynamicArea_AddAreaPic_6G(pIP, 5005, eSCREEN_COLOR_THREE, 0, 16 + 32 + 1, 0, 16, 16, &stPageHeader, (Ouint8*)"./图片测试文件/3232绿.png");
+		dynamicArea_AddAreaPic_6G(pIP, 5005, eColor, 1, 16, 0, 32, 32, &stPageHeader, (Ouint8*)"./图片测试文件/3232C.png");
+		dynamicArea_AddAreaPic_6G(pIP, 5005, eColor, 0, 16 + 32 + 1, 0, 16, 16, &stPageHeader, (Ouint8*)"./图片测试文件/3232绿.png");
 
 
 	}
@@ -3477,9 +3474,14 @@ DWORD WINAPI ThreadFunc1_G6_Dynamic(LPVOID p)
 		printf("ThreadFunc1_G6_Dynamic, pid ==================================== %lu\n", GetCurrentThreadId());   //输出子线程pid
 
 
-																												  //更新2个动态区：如果控制卡重启，则屏幕上只有当前更新的2个动态区的内容；
-																												  //onbonTest_DynamicArea_6G_2Areas(ip);
-		onbonTest_DynamicArea_6G(ip);
+		//更新2个动态区：如果控制卡重启，则屏幕上只有当前更新的2个动态区的内容；
+					
+																												  
+		//onbonTest_DynamicArea_6G_2Areas(ip);
+		
+		//unsigned char pIP[16] = "192.168.0.188";
+		E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE;// eSCREEN_COLOR_THREE;
+		onbonTest_DynamicArea_6G(ip, eColor);
 	}
 }
 
@@ -3592,7 +3594,7 @@ void fantx_onbonTest(void)
 
 
 #if DEBUG_TCP
-							//获取卡类型
+	//获取卡类型
 	Ping_data retdata;
 	ret = cmd_tcpPing(ip, port, (Ping_data*)(&retdata));
 	if (ret != 0)
@@ -3719,18 +3721,19 @@ void fantx_onbonTest(void)
 	//MultiThreadTest_G6_Dynamic();
 
 
+	unsigned char pIP[16] = "192.168.0.188";
+	E_ScreenColor_G56 eColor = E_ScreenColor_G56::eSCREEN_COLOR_DOUBLE;// eSCREEN_COLOR_THREE;
 	/*
 	*------------------------------------------------------------------------------------------------------------------------------------------------------
 	* 开始测试
 	* 测试单区域多信息（文本/图片）接口
 	*-------------------------------------------------------------------------------------------------------------------------------------------------------
 	*/
-	//unsigned char pIP[16] = "192.168.0.188";
-	//onbonTest_DynamicArea_6G(pIP);
+	onbonTest_DynamicAreaS_6G(pIP, eColor);
 
 	//onbontTest_UpdateDynamicAreas();
 	//测试动态区的所有功能
-	onbonTest_DynamicArea_6G();
+	onbonTest_DynamicArea_6G(pIP, eColor );
 
 
 	//仅测试图片功能
