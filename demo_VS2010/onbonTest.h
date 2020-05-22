@@ -17,18 +17,23 @@
 #define DEBUG_ONOFF				0
 #define DEBUG_SETCON			0
 #define DEBUG_G5                0
-#define DEBUG_PICTUREAREA		1
+#define DEBUG_PICTUREAREA		0
 #define DEBUG_TIMEAREA			0
 #define DEBUG_CLOCK				0
 
-#define DEBUG_G6				1
-#define DEBUG_G6_PICTUREAREA	1
+#define DEBUG_G6				0
+#define DEBUG_G6_PICTUREAREA	0
 #define DEBUG_G6_TIMEAREA		0
 
 #define DEBUG_G6_CLOCK          0
 #define DEBUG_FILELIST			0
 #define DEBUG_READCONFIG        0
 #define DEBUG_SETCONFIG         0
+
+//动态区功能测试 宏定义
+#define DYNAMIC_AREA_TEST_G5	0
+#define DYNAMIC_AREA_TEST_G6	1
+
 
 Oint8 delete_programFile(Ouint8* ip, Ouint16 port);
 void tcp_cmd_test(Ouint8* ip, Ouint16 port);
