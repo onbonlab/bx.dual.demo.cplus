@@ -21,15 +21,25 @@ visual studio 2010及以上版本；
 
 ## windows平台onbon SDK DEMO说明
 
-### 目录说明
+### 主要目录及文件说明
 
-./include 存放头文件，其中bx_dual_sdk.h文件中包含所有SDK函数的声明和说明；
+#### ./include 
 
-./demo_VS2010 存放基于windows visual studio VS2010版本的C++ demo代码；
+存放头文件，其中bx_dual_sdk.h文件中包含所有SDK函数的声明和说明；
 
-./lib	存放基于windows visual studio VS2010版本的C++ demo生成windows32位平台的可执行文件及所有依赖库；
+./include/bx_server_sdk.h 使用服务端时使用；
 
-./lib_utf8 统一使用utf8编码的动态库（demo中用不到此库）
+#### ./demo_VS2010 
+
+存放基于windows visual studio VS2010版本的C++ demo代码；
+
+#### ./lib	
+
+存放基于windows visual studio VS2010版本的C++ demo生成windows32位平台的可执行文件及所有依赖库；
+
+#### ./lib_utf8 
+
+统一使用utf8编码的动态库（demo中用不到此库）
 
 
 
