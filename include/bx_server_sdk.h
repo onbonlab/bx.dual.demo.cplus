@@ -1,23 +1,27 @@
 #ifdef _WIN32
-#ifdef LEDEQSDK_EXPORTS
-#define LEDEQSDK_API __declspec(dllexport)
+	#ifdef LEDEQSDK_EXPORTS
+		#define LEDEQSDK_API __declspec(dllexport)
+	#else
+		#define LEDEQSDK_API __declspec(dllimport)
+	#endif
+	#define _CALL_STD __stdcall
+	#ifndef _TEXT_CHAR
+		#define _TEXT_CHAR    wchar_t
+	#endif
 #else
-#define LEDEQSDK_API __declspec(dllimport)
-#endif
-#define _CALL_STD __stdcall
-#ifndef _TEXT_CHAR
-#define _TEXT_CHAR    wchar_t
-#endif
-#else
-#ifdef  __linux
-#define LEDEQSDK_API extern "C"
-#else
-#define LEDEQSDK_API
-#endif
-#ifndef _TEXT_CHAR
-#define _TEXT_CHAR    char
-#define _CALL_STD
-#endif
+	#ifdef  __linux
+		#define LEDEQSDK_API extern "C"
+	#else
+		#define LEDEQSDK_API
+	#endif
+	
+	#ifndef _TEXT_CHAR
+		#define _TEXT_CHAR    char	
+	#endif
+
+	#ifndef _CALL_STD
+		#define _CALL_STD
+	#endif	
 #endif
 
 #ifdef __cplusplus

@@ -3,40 +3,45 @@
 20191127:按公司名称和系列重新命名：公司名称_硬件产品系列_软件包
 */
 
-/********************************************************************
-*** 注意事项：
-*** 如果是6代控制器独用函数或结构体等等会用_G6注明
-*** 如果是5代6代公用函数或结构体等等都用_G56注明
-*** 没有注明_G6/_G56或者注明为_G5都是5代控制器接口
-/*********************************************************************/
+/*
+*********************************************************************
+** 注意事项：
+** 如果是6代控制器独用函数或结构体等等会用_G6注明
+** 如果是5代6代公用函数或结构体等等都用_G56注明
+** 没有注明_G6/_G56或者注明为_G5都是5代控制器接口
+*********************************************************************
+*/
 #ifndef _BX_DUAL_SDK_H
 #define _BX_DUAL_SDK_H
 
 #include "Obasic_types.h"
 
 #ifdef _WIN32
-#ifdef BXDUALSDK_EXPORTS
-#define BXDUAL_API __declspec(dllexport)
-#else
-#define BXDUAL_API __declspec(dllimport)
-#endif
+	#ifdef BXDUALSDK_EXPORTS
+		#define BXDUAL_API __declspec(dllexport)
+	#else
+		#define BXDUAL_API __declspec(dllimport)
+	#endif
 
-#define _CALL_STD __stdcall//__cdecl//
+	#define _CALL_STD __stdcall//__cdecl//
 
-#ifndef _TEXT_CHAR
-#define _TEXT_CHAR    wchar_t
-#endif
+	#ifndef _TEXT_CHAR
+		#define _TEXT_CHAR    wchar_t
+	#endif
 #else
-#ifdef  __linux
-#define BXDUAL_API extern "C"
-#else
-#define BXDUAL_API
-#endif
+	#ifdef  __linux
+	#define BXDUAL_API extern "C"
+	#else
+	#define BXDUAL_API
+	#endif
 
-#ifndef _TEXT_CHAR
-#define _TEXT_CHAR    char
-#define _CALL_STD
-#endif
+	#ifndef _TEXT_CHAR
+	#define _TEXT_CHAR    char	
+	#endif
+
+	#ifndef _CALL_STD
+	#define _CALL_STD
+	#endif	
 #endif
 
 #ifdef __cplusplus
@@ -74,6 +79,7 @@ extern "C"
 		eMM_DD_VIRGURE,      //MM/DD
 		eMM_DD_CHS,          //MM月DD日
 		eYYYY_MM_DD_CHS,     //YYYY年MM月DD日
+		eDD_MMWORD_YYYY		//DD 月份单词 YYYY;  如俄语：27 март 2021 也就是： 27 March 2021
 	}E_DateStyle;
 
 	typedef enum
@@ -330,7 +336,7 @@ extern "C"
 		Oint8 PackageMode;		//1 包模式。0 小包模式，分包 600 byte。1 大包模式，分包 16K byte。
 		Oint8 BarcodeFlag;		//1 是否设置了条码 ID如果设置了，该字节第 0 位为 1，否则为0
 		Oint16 ProgramNumber;	//2 控制器上已有节目个数
-		Oint32 CurrentProgram;	//4 当前节目名
+		Oint8 CurrentProgram[4];	//4 当前节目名
 		Oint8 ScreenLockStatus;	//1 Bit0 –是否屏幕锁定，1b’0 –无屏幕锁定，1b’1 –屏幕锁定
 		Oint8 ProgramLockStatus;//1 Bit0 –是否节目锁定，1b’0 –无节目锁定，1’b1 –节目锁定
 		Oint8 RunningMode;		//1 控制器运行模式
@@ -410,7 +416,7 @@ extern "C"
 		Oint8 PackageMode;		//1 包模式。0 小包模式，分包 600 byte。1 大包模式，分包 16K byte。
 		Oint8 BarcodeFlag;		//1 是否设置了条码 ID如果设置了，该字节第 0 位为 1，否则为0
 		Oint16 ProgramNumber;	//2 控制器上已有节目个数
-		Oint32 CurrentProgram;	//4 当前节目名
+		Oint8 CurrentProgram[4];	//4 当前节目名
 		Oint8 ScreenLockStatus;	//1 Bit0 –是否屏幕锁定，1b’0 –无屏幕锁定，1b’1 –屏幕锁定
 		Oint8 ProgramLockStatus;//1 Bit0 –是否节目锁定，1b’0 –无节目锁定，1’b1 –节目锁定
 		Oint8 RunningMode;		//1 控制器运行模式
@@ -672,11 +678,11 @@ extern "C"
 
 		图文字幕:0x00
 
-		战斗时间：0x09
-		噪声区：0x05
-		温度区：0x03
-		霓虹区：0x08
+		战斗时间：0x09		
+		温度区：0x03		
 		湿度区：0x04
+		噪声区：0x05
+		霓虹区：0x08
 		*/
 		Ouint8    AreaType; //区域类型
 
@@ -786,7 +792,7 @@ extern "C"
 		Ouint8 DestHour;	//1 目标时
 		Ouint8 DestMinute;	//1 目标分
 		Ouint8 DestSecond;	//1 目标秒
-		Ouint8 TimerFormat;	//1 Bit0 –天， 1 表示显示， 0表示不显示 Bit1 –时 Bit2 –分 Bit3 –秒 Bit4–天单位， 1 表示显示， 0 不显示 Bit5–时 Bit6–分 Bit7–秒
+		Ouint8 TimerFormat;	//1 Bit0–天， 1 表示显示， 0表示不显示； Bit1–时； Bit2–分； Bit3–秒； Bit4–天单位，1表示显示，0不显示；Bit5–时 Bit6–分 Bit7–秒
 		Ouint8 DayLen;		//1 0x00 单元长度 0x00 –长度由控制器自动计算其它–固定长度
 		Ouint8 HourLen;		//1 0x00 同上
 		Ouint8 MinuteLen;	//1 0x00 同上
@@ -1407,7 +1413,9 @@ extern "C"
 
 	/*! ***************************************************************
 	* 函数名：       cmd_AT_setWifiSsidPwd（）
-	* 参数名：ssid：控制器WIFI ssid，pwd：控制WIFI密码
+	* 参数名：
+	*  ssid：控制器WIFI ssid，
+	*  pwd：控制WIFI密码; 有密码时，密码必须大于等于8位；pwd为空时，表示清除密码；
 	* 返回值：0 成功， 其他值为错误号
 	* 功 能：设置wifi卡的 ssid pwd
 	* 注：
@@ -1417,14 +1425,26 @@ extern "C"
 
 
 	/*! ***************************************************************
-	* 函数名：       cmd_AT_getWifiSsidPwd（）
-	* 参数名：ssid：控制器WIFI ssid，pwd：控制WIFI密码
+	* 函数名：cmd_AT_getWifiSsidPwd（）
+	* 参数名：
+	*  ssid：控制器WIFI ssid，32字节
+	*  pwd：控制WIFI密码；64字节
 	* 返回值：0 成功， 其他值为错误号
 	* 功 能：获取WIFI卡ssid pwd
 	* 注：
 	* 通讯方式（UDP）
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_cmd_AT_getWifiSsidPwd(Ouint8* ssid, Ouint8* pwd);
+
+
+	/*!
+	*参数说明:			sMode	sSsid(32bytes)	sPwd(64bytes) sPwdMode			sChannel sIP		sPort	sSssidRoute	sPwdRoute   sIPRoute        sPortRoute
+	*模式为 AP+Station:	模式,	SSID(AP),		PWD(密码),		MODE(加密模式),	信道,	IP,			PORT,	SSID(路由),	PWD(路由),  IP,            PORT
+	*实例:				3,		BX-WIFI,		123456,			0,              11,		192.168.100.1,5005,	ONBON,		123456,     192.168.16.125, 5005
+	*模式为AP:			模式,	SSID(AP),		PWD(密码),		MODE(加密模式),	信道,	IP,			PORT(MODE: 0:OPEN  1:WPA_PSK   2:WPA2_PSK  3:WPA_WPA2_PSK)
+	*实例:				2,		BX-WIFI,		123456,0,		11,    192.168.100.1,	5005
+	 */
+	BXDUAL_API int _CALL_STD bxDual_cmd_AT_getWifiSsidPwdNew(Ouint8* sMode, Ouint8* sSsid, Ouint8* sPwd, Ouint8* sIP, Ouint8* sPort, Ouint8* sPwdMode, Ouint8* sChannel, Ouint8* sSsidRoute, Ouint8* sPwdRoute, Ouint8* sIPRoute, Ouint8* sPortRoute);
 
 
 
@@ -2604,7 +2624,7 @@ extern "C"
 		Ouint16* RelateProSerial,
 		Ouint8 ImmePlay,
 		Ouint16 uAreaX, Ouint16 uAreaY, Ouint16 uWidth, Ouint16 uHeight,
-		EQareaframeHeader oFrame,
+        BxAreaFrmae_Dynamic_G6 oFrame,
 
 		Ouint8 nInfoCount,
 		DynamicAreaBaseInfo_5G** pInfo
@@ -2664,7 +2684,7 @@ extern "C"
 		Ouint16* RelateProSerial,
 		Ouint8 ImmePlay,
 		Ouint16 uAreaX, Ouint16 uAreaY, Ouint16 uWidth, Ouint16 uHeight,
-		EQareaframeHeader oFrame,
+        BxAreaFrmae_Dynamic_G6 oFrame,
 
 		Ouint8 nInfoCount,
 		onbon_DynamicAreaInfo_G6* pInfo
@@ -2676,7 +2696,7 @@ extern "C"
 	删除动态区：删除单个动态区：
 	uAreaId = 0xff:删除所有区域
 	*/
-	BXDUAL_API int _CALL_STD bxDual_dynamicArea_DelArea_6G(Ouint8* pIP, Ouint32 nPort, Oint8 uAreaId);
+	BXDUAL_API int _CALL_STD bxDual_dynamicArea_DelArea_6G(Ouint8* pIP, Ouint32 nPort, Ouint8 uAreaId);
 	/*
 	功能：TCP方式删除多个动态区：
 	参数：
@@ -2702,7 +2722,7 @@ extern "C"
 						   //bxDual_dynamicArea_DelAreas_6G_Serial
 
 	/*
-	功能：插入独立语音
+	功能：插入独立语音（原有语音保留）
 	参数：
 	Ouint8 VoiceFlg;		//1 1 语音属性 0：此条语音从头插入队列，且停止当前正在播放的语音 1：此条语音从头插入队列，不停止当前播报的语音 2：此条语音从尾插入队列
 	Ouint8 StoreFlag;		//1 0 该值为 1 表示需要存储到 FLASH 中，掉电信息不丢失该值为 0 表示需要存储到 RAM 中，掉电信息丢失
@@ -2710,7 +2730,7 @@ extern "C"
 	BXDUAL_API int _CALL_STD bxDual_dynamicArea_InsertSoundIndepend(Ouint8* pIP, Ouint32 nPort, EQSoundDepend_6G stSoundData, Ouint8 VoiceFlg, Ouint8 StoreFlag);
 
 	/*
-	功能：5.4.3 更新独立语音命令
+	功能：5.4.3 更新独立语音命令（清空原有语音信息）
 	stSoundData：指向存放EQSoundDepend_6G结构的一段内存首地址指针；
 	nSoundDataCount:指示stSoundData指向内存地址空间中存放EQSoundDepend_6G个数；
 	StoreFlag:该值为 1 表示需要存储到 FLASH 中，掉电信息不丢失;该值为 0 表示需要存储到 RAM 中，掉电信息丢失
@@ -3095,6 +3115,152 @@ extern "C"
 	* 一定要参考协议对每一个值都不能理解出错否则发下去的内容显示肯定不是自己想要的
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_addArea_G6(Ouint16 areaID, EQareaHeader_G6 *aheader);
+
+
+	/*!
+	*  功能：配置传感器区域的参数
+	*  
+	*  SensorMode	1byte	默认=0；
+	*						0：代表温度
+							1：代表湿度
+							2：代表噪声
+							3：代表PM2.5（空气质量变送器）
+							4：代表PM10（空气质量变送器）
+							5：RS485型风向变送器
+							6：RS485型风速变换器
+							7：大气压力
+							8：车速
+							9：光照
+							10：0x0A：水位计
+							11：0x0B: 代表TSP
+							12：0x0C: 负氧离子监测仪
+							0xff：万能传感器，该类型是BX-6XX-MODBUS系列专用类型，当传感器类型为该值时，下面的SensorType、SensorUnit、DisplayUnitFlag均设置为0，对于通用系列控制卡，该值为非0xff的值;
+		SensorType	传感器类型;默认长度/值： 1 0x00 
+							温度：
+								0x00 – DS18B20（温度传感器）
+								0x01 – SHT11(6 代三基色和全彩不支持)（I 温湿度传感器(4 线)
+								0X02 – DHT21（II 温湿度传感器(3 线)）
+								0X03 – RS-BYH-M（气象组合传感器）（BX-QX）
+							湿度：
+								0x00 – SHT11(6代三基色和全彩不支持)（I温湿度传感器(4线)
+								0x01 –DHT21（II温湿度传感器(3线)）
+								0X02 –RS-BYH-M（气象组合传感器 ）（BX-QX）
+							噪声：
+								0x00 –AWA5636-3(6代三基色和全彩不支持)
+								0x01 –HS5633T(6代三基色和全彩不支持)
+								0x02–AZ8921(6代三基色和全彩不支持)
+								0x03-BX-ZS
+								0x04- RS-BYH-M（气象组合传感器）（BX-QX）
+							PM2.5：
+								0x00：空气质量变送器(RS-PM-N10-2) PM2.5（BX-PM）
+								0x01 :   气象组合传感器（RS-BYH-M）PM2.5（BX-QX）
+							PM10：
+								0x00 – 空气质量变送器(RS-PM-N10-2) PM10(BX-PM)
+								0x01 :   气象组合传感器（RS-BYH-M）PM10（BX-QX）
+							TSP：
+								0x00 – 空气质量变送器(RS-PM-N10-2) TSP(BX-PM)
+								0x01 :   气象组合传感器（RS-BYH-M）TSP（BX-QX）
+							风向变送器：
+								0x00 – RS485型风向变送器(RS-FX-N01) (BX-FX)
+							风速变换器：
+								0x00 – RS485型风速变换器(RS-FS-N01 )（BX-FS）
+							大气压力：
+								0X00 –RS-BYH-M（气象组合传感器）（BX-QX）
+							车速：
+								0X00 – TBR-300 (TBR-300)
+							光照：
+								0X00 –RS-BYH-M（气象组合传感器）（BX-QX）
+							水位计：
+								0X00 – YEH-Z(空高值,水位计LCD用L表示)
+								0X01 – YEH-Z(液位值,水位计LCD用H表示)
+								0X02 –WFX-40
+								0X03 –WLZ(L)  空高值
+								0X04 –WLZ(H)   液位值
+							负氧离子监测仪：
+								0x00 --  AN-210
+
+		nSensorColor		正常颜色；默认绿色=0x02；对于无灰度系统，均用1Byte来表示，其中，Bit0表示红，bit1表示绿，bit2表示蓝，对于每一个Bit，0表示灭，1表示亮；
+		SensorAlarmColor	报警颜色/超过阀值的颜色；红色=0x01；
+		nAlarmValue			报警值/阀值；默认60；
+		nDisplayUnitFlag	是否显示单位 0：不显示; 1：显示; 默认=1;
+		nSensorModeDispType	显示模式; 0x00–整数模式; 默认=0x00;
+		SensorCorrectionPol 传感器修正值极性 注： 0–正， 1–负; 默认=0x00；
+		SensorCorrection	传感器修正值；默认=0x00；
+		nRatioValue			单位显示比例：默认100；
+
+	*  本文档中提及的颜色属性:
+	*  对于有灰度系统，均用4Byte来表示，其中Byte0表示红，Byte1表示绿，Byte2表示蓝，Byte3保留
+	*  对于无灰度系统，均用1Byte来表示，其中，Bit0表示红，bit1表示绿，bit2表示蓝，对于每一个Bit，0表示灭，1表示亮；
+	 */
+	BXDUAL_API int _CALL_STD bxDual_program_SetSensorArea_G6(Ouint16 nAreaID, Oint8 nSensorMode, Oint8 nSensorType,
+		Ouint8 nSensorUnit,			// 1 0x00 单位温度：0x00 –摄氏度 0x01 –华氏度;  水位计 0x00 –m, 0x01 –cm
+		Oint8* pFixedTxt, Oint8* pFontName, Ouint8 nFontSize, 															 
+		Oint8 nSensorColor, Oint8 SensorErrColor1, Oint32 nAlarmValue, Oint8 nSensorThreshPol,
+		Oint8 nDisplayUnitFlag,	Oint8 nSensorModeDispType, Ouint8 nSensorCorrectionPol, 
+		Ouint32 nSensorCorrection, Ouint8 nRatioValue );
+
+
+	/*!
+	 *  设置5代卡温度区域属性
+	 */
+	BXDUAL_API int _CALL_STD bxDual_program_SetSensorAreaTemperature_G5(Ouint16 nAreaID,
+								Ouint8 nSensorType,			//	1		0x00	传感器类型：//0x00 – DS18B20 //0x01 – SHT1XXX
+								Ouint8 nTemperatureUnit,	//	1		0x00	温度单位：0x00–摄氏度; 0x01–华氏度
+								Ouint8 nTermperatureMode,	//	1		0x00	温度显示模式：0x00 –整数模式(25C); 0x01 –小数模式(25.5C);
+								Ouint8 nTemperatureCorrectionPol,// 1 	0x00	传感器修正值极性 注：0 –正， 1 –负
+								Ouint8 nTemperatureCorrection,	// 1 	0x00	传感器修正值（单位：摄氏度）注：此参数为符号整型，单位为0.1
+								Ouint8 nTemperatureThreshPol,	// 1 	0x00	温度阈值极性 注：Bit0 –极性，0 正， 1 负; Bit1 - 0表示小于此值触发事情，1表示大于此值触发条件
+								Ouint8 nTemperatureThresh,		// 1	0x00	温度阈值
+								Ouint8 nTemperatureColor,		// 1			正常温度颜色
+								Ouint8 nTemperatureErrColor,	// 1			温度超过阈值时显示的颜色
+								Oint8* pstrFixTxt,//Ouint8 StaticTextOption;//1	固定文本选项 0x00–无固定文本; 0x01–有	
+								Ouint8 nFontSize,
+								Oint8* pstrFontNameFile,
+								Ouint8 nUnitShowRation			// 显示的单位字体大小与正常显示文本的大小的比例；
+							);
+
+
+	/*!
+	 *  nHumidityThresh：如果当湿度>100时作为触发条件，则此值=0x100+100; 如果当湿度<100时作为触发条件，则此值=100;
+	 */
+	BXDUAL_API int _CALL_STD bxDual_program_SetSensorAreaHumidity_G5(Ouint16 nAreaID,
+								Ouint8 nSensorType,				// 1		传感器类型：0x00 –
+								Ouint8 nHumidityMode,			// 1		显示模式：0x00 – % RH，整数型相对湿度; 0x01 –浮点型相对湿度;
+								Ouint8 nHumidityCorrectionPol,	// 1		传感器修正值极性; 注：0 –正， 1 –负
+								Ouint8 nHumidityCorrection,		// 1		传感器修正值; 注：单位为0.1								
+								Ouint8 nHumidityThresh,			// 1		湿度阈值及触发条件; Bit0~Bit6 –湿度阈值; Bit7 – 0表示小于此值触发事情，1表示大于此值触发条件
+								Ouint8 nHumidityColor,			// 1		正常湿度颜色:	*  本文档中提及的颜色属性:
+																			//*对于有灰度系统，均用4Byte来表示，其中Byte0表示红，Byte1表示绿，Byte2表示蓝，Byte3保留
+																			//*对于无灰度系统，均用1Byte来表示，其中 Bit0表示红，bit1表示绿，bit2表示蓝，对于每一个Bit，0表示灭，1表示亮；
+								Ouint8 nHumidityErrColor,		// 1		湿度超过阈值时显示的颜色
+								Oint8* pstrFixTxt,//Ouint8 StaticTextOption;	// 1	固定文本选项 0x00–无固定文本; 0x01–有	
+								Ouint8 nFontSize,
+								Oint8* pstrFontNameFile,
+								Ouint8 nUnitShowRation						// 显示的单位字体大小与正常显示文本的大小的比例；
+								);
+
+
+
+	/*!
+	 *  设置5代卡噪声区域属性
+	 */
+	BXDUAL_API int _CALL_STD bxDual_program_SetSensorAreaNoise_G5(Ouint16 nAreaID,
+								Ouint8 nSensorType,			//		1				传感器类型：0x00 –嘉兴恒升; 0x01 –杭州爱华
+								Ouint8 nNoiseMode,			//		1				显示模式：0x00 – 60.0dB; 0x01 – 60dB; 0x02–60.0; 0x03–60
+								Ouint8 nNoiseCorrectionPol,	//		1				传感器修正值极性; 注：0 –正， 1 –负
+								Ouint8 nNoiseCorrection,	//		1				传感器修正值; 注：此参数为符号整型，单位为0.1
+								Ouint8 nNoiseThresh,		//		1				噪声阈值及触发条件; Bit0~Bit6 –噪声阈值; Bit7 – 0表示小于此值触发事情，1表示大于此值触发条件
+								Ouint8 nNoiseColor,			//		1				正常噪声颜色
+								Ouint8 nNoiseErrColor,		//		1				噪声超过阈值时显示的颜色
+								//Ouint8 StaticTextOption,	//		1				固定文本选项; 0x00 –无固定文本; 0x01 – 有;
+								//Ouint8* FontData,			//		1				字模数据，具体的字模格式，请参考附录1; （固定文本应整体当做一个字来处理）; 字模个数为13，其顺序依次为：0, …, 9, ., dB，固定文本;
+								Oint8* pstrFixTxt,//Ouint8 StaticTextOption;	// 1	固定文本选项 0x00–无固定文本; 0x01–有	
+								Ouint8 nFontSize,
+								Oint8* pstrFontNameFile,
+								Ouint8 nUnitShowRation						// 显示的单位字体大小与正常显示文本的大小的比例；
+							);
+
+	
 	/*! ***************************************************************
 	* 函数名：       bxDual_program_deleteArea_G6（）
 	* 参数名：
@@ -3135,6 +3301,7 @@ extern "C"
 	* 一定要参考协议对每一个值都不能理解出错否则发下去的内容显示肯定不是自己想要的
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_picturesAreaAddTxt_G6(Ouint16 areaID, Ouint8* str, Ouint8* fontName, EQpageHeader_G6* pheader);
+
 	/*! ***************************************************************
 	* 函数名：       bxDual_program_picturesAreaChangeTxt_G6（）
 	*	areaID：区域的ID号
@@ -3147,6 +3314,7 @@ extern "C"
 	* 如需修改字体，需要将区域删除，重新添加区域和文字
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_picturesAreaChangeTxt_G6(Ouint16 areaID, Ouint8* str, EQpageHeader_G6* pheader);
+
 	/*! ***************************************************************
 	* 函数名：       bxDual_program_fontPath_picturesAreaAddTxt_G6（）
 	*	areaID：区域的ID号
@@ -3159,6 +3327,7 @@ extern "C"
 	* 一定要参考协议对每一个值都不能理解出错否则发下去的内容显示肯定不是自己想要的
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_fontPath_picturesAreaAddTxt_G6(Ouint16 areaID, Ouint8* str, Ouint8* fontPathName, EQpageHeader_G6* pheader);
+
 	/*! ***************************************************************
 	* 函数名：       bxDual_program_fontPath_picturesAreaChangeTxt_G6（）
 	*	areaID：区域的ID号
@@ -3171,6 +3340,7 @@ extern "C"
 	* 一定要参考协议对每一个值都不能理解出错否则发下去的内容显示肯定不是自己想要的
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_fontPath_picturesAreaChangeTxt_G6(Ouint16 areaID, Ouint8* str, EQpageHeader_G6* pheader);
+
 	/*! ***************************************************************
 	* 函数名：       bxDual_program_pictureAreaAddPic_G6（）
 	*	areaID：区域的ID号
@@ -3184,6 +3354,7 @@ extern "C"
 	*
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_pictureAreaAddPic_G6(Ouint16 areaID, Ouint16 picID, EQpageHeader_G6* pheader, Ouint8* picPath);
+
 	/*! ***************************************************************
 	* 函数名：       bxDual_program_backGroundPic_G6（）
 	*	areaID：区域的ID号
@@ -3210,7 +3381,9 @@ extern "C"
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_backGroundColor_G6(Ouint16 areaID, EQpageHeader_G6* pheader, Ouint32 BGColor);
 
-	/*! **************************************************************** 函数名：       bxDual_program_pictureAreaChangePic_G6（）
+
+	/*! **************************************************************** 
+	*  函数名：       bxDual_program_pictureAreaChangePic_G6（）
 	*	areaID：区域的ID号
 	*   picID：图片编号，传入需要修改的图片编号
 	*	EQpageHeader_G6：参考结构体EQpageHeader_G6
@@ -3221,6 +3394,22 @@ extern "C"
 	*
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_pictureAreaChangePic_G6(Ouint16 areaID, Ouint16 picID, EQpageHeader_G6* pheader, Ouint8* picPath);
+
+
+
+	/*!
+	 *  给区域增加背景,背景类型通过与这个函数配套使用的bxDual_program_addArea_G6接口函数中的AreaType指定；
+	 *    
+	 *  picPath			指定作为背景的图片的文件名完整路径;字符串类型;
+	 *  picPathLen		指定图片的文件名完整路径长度;
+	 *  DisplayMode		0x00–随机显示;0x01–静止显示;0x02–快速打出;0x03–向左移动;0x04–向左连移;0x05–向上移动;0x06–向上连移;0x07–闪烁;...
+	 *
+	 *  返回值：			0-成功；否则失败；-1：picPath长度不对,与picPathLen不一致；
+	 */
+	BXDUAL_API int _CALL_STD bxDual_progrm_SetBGAttribs_G6(Ouint16 areaID, Ouint8* picPath, Ouint32 picPathLen, Ouint8 DisplayMode, Oint8 nSpeed, Oint16 nStayTime);
+
+
+
 	/*! ***************************************************************
 	* 函数名：       bxDual_program_pictureAreaEnableSound_G6（）
 	*	areaID：区域的ID号
@@ -3233,6 +3422,9 @@ extern "C"
 	*
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_program_pictureAreaEnableSound_G6(Ouint16 areaID, EQPicAreaSoundHeader_G6 sheader, Ouint8* soundData);
+
+
+
 	/*! ***************************************************************
 	* 函数名：       bxDual_program_pictureAreaChangeSoundSettings_G6（）
 	*	areaID：区域的ID号
@@ -3340,7 +3532,7 @@ extern "C"
 				cUnitHour	: cUnitMinute, cUnitSec:分别对应时、分、秒的显示单位字符串；
 	返回内容：	0 成功， 其他值为错误号
 	*/
-	BXDUAL_API int _CALL_STD bxDual_program_timeAreaAddCounterTimer_G6(Ouint16 areaID, BXG6_Time_Counter *header, Oint8* cUnitDay, Oint8* cUnitHour, Oint8* cUnitMinute, Oint8* cUnitSec );
+	BXDUAL_API int _CALL_STD bxDual_program_timeAreaAddCounterTimer_G6(Ouint16 areaID, BXG6_Time_Counter *header, Oint8* cUnitDay, Oint8* cUnitHour, Oint8* cUnitMinute, Oint8* cUnitSec, Oint8* pFixedTxt);
 
 	
 	/*! ***************************************************************

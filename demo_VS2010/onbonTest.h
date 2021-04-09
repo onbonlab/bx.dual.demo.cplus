@@ -21,8 +21,8 @@
 #define DEBUG_TIMEAREA			0
 #define DEBUG_CLOCK				0
 
-#define DEBUG_G6				0
-#define DEBUG_G6_PICTUREAREA	0
+#define DEBUG_G6				1
+#define DEBUG_G6_PICTUREAREA	1
 #define DEBUG_G6_TIMEAREA		0
 
 #define DEBUG_G6_CLOCK          0

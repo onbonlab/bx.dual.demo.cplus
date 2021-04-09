@@ -3507,7 +3507,7 @@ void MultiThreadTest_G6_Program()
 	nIndex1 = 5;
 	hThread = CreateThread(NULL, 0, ThreadFunc1_G6_Program, (LPVOID)&nIndex1, 0, &threadId); // 创建线程
 
-																							 //hThread = CreateThread(NULL, 0, ThreadFunc1_G5, 0, 0, &threadId); // 创建线程
+	//hThread = CreateThread(NULL, 0, ThreadFunc1_G5, 0, 0, &threadId); // 创建线程
 }
 
 
@@ -3581,7 +3581,7 @@ void fantx_onbonTest(void)
 	//unsigned char ip[] = "192.168.2.5";  //5E1
 	//unsigned char ip[] = "192.168.100.1";  //X-W4
 	//unsigned char ip[16] = "222.66.141.10";  //上海牛工测试
-	unsigned char ip[16] = "192.168.0.188";
+	unsigned char ip[16] = "192.168.2.130";
 
 	//unsigned char ip[16] = "127.0.0.1";
 
@@ -3682,7 +3682,7 @@ void fantx_onbonTest(void)
 
 #if DEBUG_G6
 	//set_packetLen(31*1024);
-	addProgram_G6(c_type, eSCREEN_COLOR_FULLCOLOR);// eSCREEN_COLOR_DOUBLE);//eSCREEN_COLOR_SINGLE);// // eSCREEN_COLOR_FULLCOLOR);//eSCREEN_COLOR_THREE);//
+	addProgram_G6(c_type, eSCREEN_COLOR_DOUBLE);//eSCREEN_COLOR_FULLCOLOR);// //eSCREEN_COLOR_SINGLE);// // eSCREEN_COLOR_FULLCOLOR);//eSCREEN_COLOR_THREE);//
 												   //addProgram_G6(c_type, eSCREEN_COLOR_THREE);//eSCREEN_COLOR_DOUBLE);// 
 
 #if DEBUG_G6_TIMEAREA
