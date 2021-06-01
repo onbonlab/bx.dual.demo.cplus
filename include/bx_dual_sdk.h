@@ -1565,6 +1565,13 @@ extern "C"
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_cmd_check_time(Ouint8* ip, Ouint16 port);
 
+	/*!
+	 *  串口校时
+	 *  sPortName : "\\\\.\\COM1";
+	 *  nBaudRateIndex: 1(表示波特率9600); 2(代表57600);
+	 */
+	BXDUAL_API int _CALL_STD bxDual_cmd_check_time_uart(Oint8* sPortName, Ouint8 nBaudRateIndex );
+
 	/*! ********************************************************************************************************************
 	* 函数名：cmd_tcpNetworkSearch_6G（）
 	* 参数名：ip：控制器IP， port：控制器端口;
@@ -1586,6 +1593,14 @@ extern "C"
 	*
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_cmd_coerceOnOff(Ouint8* ip, Ouint16 port, Ouint8 onOff);
+
+
+	/*!
+	 *  强制开关机（通过串口发送命令）
+	 *  sPortName : "\\\\.\\COM1";
+	 *  nBaudRateIndex: 1(表示波特率9600); 2(代表57600);
+	 */
+	BXDUAL_API int _CALL_STD bxDual_cmd_coerceOnOff_uart(Oint8* sPortName, Ouint8 nBaudRateIndex, Ouint8 nOnOff);
 
 	/*! ***************************************************************
 	* 函数名：       cmd_timingOnOff（）
@@ -1616,6 +1631,14 @@ extern "C"
 	* 参考协议对应每一个表格，注意第一个字节模式的配置
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_cmd_setBrightness(Ouint8* ip, Ouint16 port, Brightness *brightness);
+
+
+	/*!
+	 *  通过串口调节亮度
+	 *  sPortName : "\\\\.\\COM1";
+	 *  nBaudRateIndex: 1(表示波特率9600); 2(代表57600);
+	 */
+	BXDUAL_API int _CALL_STD bxDual_cmd_setBrightness_uart(Oint8* sPortName, Ouint8 nBaudRateIndex, Brightness* brightness);
 
 
 	/*! ***************************************************************
@@ -2004,6 +2027,25 @@ extern "C"
 	* firmwareFileName 缺省值为4个字节字符串“F001”
 	******************************************************************/
 	BXDUAL_API int _CALL_STD bxDual_cmd_firmwareActivate(Ouint8* ip, Ouint16 port, Ouint8* firmwareFileName);
+
+
+	/*!
+	 *  发送完整的协议数据并接收到控制卡应答的协议数据;
+	 *  参数：
+	 *		pSendData   -原始数据；
+	 *		pRecvData	-应答数据;
+	 *		nRecvDataLen-应答数据的长度;
+	 *  返回值：
+	 *		0-成功；
+	 *		其它值失败;
+	 */
+	BXDUAL_API int _CALL_STD bxDual_Net_SendRecvData(Ouint8* ip, Ouint16 port, Ouint8* pSendData, Ouint32 nSendDataLen, Ouint8* pRecvData, Ouint32* nRecvDataLen );
+
+
+	/*!
+	 * 发送协议中命令部分的数据；
+	 */
+	BXDUAL_API int _CALL_STD bxDual_NetData_SendRecv(Ouint8* ip, Ouint16 port, Ouint8* pSendData, Ouint32 nSendDataLen, Ouint8* pRecvData, Ouint32* nRecvDataLen);
 
 	/*
 	功能：全局音量设置
